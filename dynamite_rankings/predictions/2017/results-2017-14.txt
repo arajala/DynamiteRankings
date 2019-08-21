@@ -1,0 +1,17 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+WRONG,Stanford,USC,Stanford,USC,-4.4,3
+RIGHT,Massachusetts,FloridaInternational,FloridaInternational,FloridaInternational,1.3,18
+RIGHT,LouisianaMonroe,FloridaState,FloridaState,FloridaState,36.9,32
+RIGHT,NorthTexas,FloridaAtlantic,FloridaAtlantic,FloridaAtlantic,24.0,24
+RIGHT,Akron,Toledo,Toledo,Toledo,22.6,17
+RIGHT,Memphis,UCF,UCF,UCF,20.3,7
+RIGHT,TCU,Oklahoma,Oklahoma,Oklahoma,1.4,24
+WRONG,GeorgiaSouthern,CoastalCarolina,GeorgiaSouthern,CoastalCarolina,-8.1,11
+WRONG,Idaho,GeorgiaState,GeorgiaState,Idaho,-7.5,14
+RIGHT,LouisianaLafayette,AppalachianState,AppalachianState,AppalachianState,31.8,49
+RIGHT,Georgia,Auburn,Georgia,Georgia,2.7,21
+RIGHT,SouthAlabama,NewMexicoState,NewMexicoState,NewMexicoState,8.9,5
+WRONG,Troy,ArkansasState,ArkansasState,Troy,-3.3,7
+RIGHT,FresnoState,BoiseState,BoiseState,BoiseState,5.8,3
+RIGHT,MiamiFL,Clemson,Clemson,Clemson,18.0,35
+RIGHT,OhioState,Wisconsin,OhioState,OhioState,3.9,6

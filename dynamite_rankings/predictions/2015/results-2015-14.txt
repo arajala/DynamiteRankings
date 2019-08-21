@@ -1,0 +1,16 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+RIGHT,BowlingGreen,NorthernIllinois,BowlingGreen,BowlingGreen,9.2,20
+WRONG,Texas,Baylor,Baylor,Texas,-32.4,6
+RIGHT,SouthernMiss,WesternKentucky,WesternKentucky,WesternKentucky,7.5,17
+RIGHT,Temple,Houston,Houston,Houston,15.5,11
+WRONG,GeorgiaState,GeorgiaSouthern,GeorgiaSouthern,GeorgiaState,-53.9,27
+RIGHT,TexasState,ArkansasState,ArkansasState,ArkansasState,34.4,38
+RIGHT,NewMexicoState,LouisianaMonroe,LouisianaMonroe,LouisianaMonroe,2.8,7
+RIGHT,Florida,Alabama,Alabama,Alabama,21.8,14
+WRONG,WestVirginia,KansasState,WestVirginia,KansasState,-16.2,1
+WRONG,Troy,LouisianaLafayette,LouisianaLafayette,Troy,-2.4,24
+RIGHT,AppalachianState,SouthAlabama,AppalachianState,AppalachianState,38.4,7
+WRONG,AirForce,SanDiegoState,AirForce,SanDiegoState,-3.7,3
+RIGHT,Stanford,USC,Stanford,Stanford,1.5,19
+RIGHT,NorthCarolina,Clemson,Clemson,Clemson,12.0,8
+RIGHT,MichiganState,Iowa,MichiganState,MichiganState,4.2,3
