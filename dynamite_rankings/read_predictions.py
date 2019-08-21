@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  BAD Engineering LLC and Bryan VanDuinen
+# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
