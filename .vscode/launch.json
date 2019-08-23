@@ -16,7 +16,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\rank.py",
-            "args": ["2019", "1"],
+            "args": ["2019", "0"],
             "console": "integratedTerminal"
         },
         {

@@ -16,9 +16,11 @@
 
 import os
 import sys
+
 import numpy as np
 
 from calculate_model import calculate_model
+from read_rankings import read_rankings
 from read_stats import read_stats
 from read_teams import read_teams
 
@@ -33,20 +35,79 @@ def rank(year, week):
 
 def calculate_team_rankings(year, week):
 
-    stats = read_stats(year, week)
+    if week > 0:
+        stats = read_stats(year, week)
+    else:
+        stats = None
+
     teams, _ = read_teams(year)
     
-    model, strengths, _ = calculate_model(year, week)
+    _, strengths, standard_deviations = calculate_model(year, week, stats, teams)
     # strengths = get_model_array(model, 'strength')
-    strengths = strengths - min(strengths)
+    normalized_strengths = strengths - min(strengths)
     # standard_deviations = get_model_array(model, 'standard deviation')
+    if week > 0:
+        prev_rankings = read_rankings(year, week - 1)
 
     if week == 0:
-        team_scores = strengths * 0.5
+        team_scores = normalized_strengths * 0.5
     else:
         wins = get_wins_array(stats, teams)
         games_played = get_games_played_array(stats, teams)
-        team_scores = strengths * (wins + 2) / (games_played + 4)
+        team_scores = normalized_strengths * (wins + 2) / (games_played + 4)
+
+    sort_indexes = np.argsort(-team_scores)
+
+    rankings = {}
+    i = 0
+    if week > 0:
+        for team in teams:
+            rankings[team] = {
+                'rank': np.where(sort_indexes == i)[0][0] + 1,
+                'previous rank': prev_rankings[team]['rank'],
+                'delta rank': prev_rankings[team]['rank'] - (np.where(sort_indexes == i)[0][0] + 1),
+                'team score': team_scores[i],
+                'strength': strengths[i],
+                'standard deviation': standard_deviations[i]
+            }
+            i += 1
+    else:
+        for team in teams:
+            rankings[team] = {
+                'rank': np.where(sort_indexes == i)[0][0] + 1,
+                'previous rank': 0,
+                'delta rank': 0 - (np.where(sort_indexes == i)[0][0] + 1),
+                'team score': team_scores[i],
+                'strength': strengths[i],
+                'standard deviation': standard_deviations[i]
+            }
+            i += 1
+
+    # Print teamrankings
+    team_rankings_file_string = 'Team,Rank,PrevRank,DeltaRank,TeamScore,Strength,StandardDeviation\n'
+    for team in rankings:
+
+        # Print to file string in csv format
+        team_rankings_file_string += '{0},{1},{2},{3},{4},{5},{6}\n'.format(
+            team, rankings[team]['rank'], rankings[team]['previous rank'], rankings[team]['delta rank'], rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
+        
+    teams_list = []
+    for team in teams:
+        teams_list.append(team)
+
+    for index in sort_indexes:
+        team = teams_list[index]
+        team_rankings_string = '{0} ({1}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}'.format(
+            rankings[team]['rank'], rankings[team]['delta rank'], team, rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
+        print(team_rankings_string)
+
+    # Create the predictions file with absolute path
+    absolute_path = os.path.dirname(os.path.realpath(__file__))
+    filename = '{0}\\rankings\\{1}\\team_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    with open(filename, 'w') as file:
+        file.write(team_rankings_file_string)
+
+    return rankings
 
 def calculate_conference_rankings(year, week, team_rankings):
     pass

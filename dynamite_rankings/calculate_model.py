@@ -23,7 +23,7 @@ from read_model import read_model
 from read_number_of_weeks import read_number_of_weeks
 
 
-def calculate_model(year, week):
+def calculate_model(year, week, stats, teams):
 
     # Check if the week is 'bowl' week
     num_weeks = read_number_of_weeks(year)
@@ -31,13 +31,6 @@ def calculate_model(year, week):
         week = num_weeks + 1
     elif week > num_weeks:
         raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
-
-    teams, _ = read_teams(year)
-
-    if week == 0:
-        stats = None
-    else:
-        stats = read_stats(year, week)
 
     if week < 4:
         prev_stats = read_stats(year - 1, 'bowl')
@@ -51,12 +44,12 @@ def calculate_model(year, week):
     rushing_yards_margin = calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams)
     home_field_corrections = calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_played, teams)
 
-    games_played_normalization = calculate_games_played_normalization(stats, games_played, teams)
+    games_played_normalization = calculate_games_played_normalization(week, stats, games_played, teams)
 
     strengths = calculate_strengths(week, points_margin, rushing_yards_margin, home_field_corrections, games_played, games_played_normalization, prev_model, teams)
-    average_opponent_strengths = games_played_normalization * strengths
+    average_opponent_strengths = np.matmul(games_played_normalization, strengths)
 
-    standard_deviations = calculate_standard_deviations(week, prev_model, teams)
+    standard_deviations = calculate_standard_deviations(year, week, prev_model, teams)
 
     model = {}
     i = 0
@@ -82,7 +75,7 @@ def calculate_model(year, week):
         
     # Create the predictions file with absolute path
     absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}\\model\\{1}\\model-{1}-{2:02}.json'.format(absolute_path, year, week)
+    filename = '{0}\\models\\{1}\\model-{1}-{2:02}.csv'.format(absolute_path, year, week)
     with open(filename, 'w') as file:
         file.write(model_file_string)
 
@@ -91,7 +84,7 @@ def calculate_model(year, week):
 def calculate_games_played(week, stats, teams):
 
     num_teams = len(teams)
-    games_played = np.zeros(num_teams, 1)
+    games_played = np.zeros(num_teams)
 
     i = 0
     for team in teams:
@@ -108,7 +101,7 @@ def calculate_games_played(week, stats, teams):
 def calculate_points_margin(week, stats, prev_stats, games_played, teams):
 
     num_teams = len(teams)
-    points_margin = np.zeros(num_teams, 1)
+    points_margin = np.zeros(num_teams)
 
     i = 0
     for team in teams:
@@ -140,7 +133,7 @@ def calculate_points_margin(week, stats, prev_stats, games_played, teams):
 def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams):
 
     num_teams = len(teams)
-    rushing_yards_margin = np.zeros(num_teams, 1)
+    rushing_yards_margin = np.zeros(num_teams)
 
     i = 0
     for team in teams:
@@ -172,21 +165,33 @@ def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams)
 def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_played, teams):
 
     num_teams = len(teams)
-    home_field_corrections = np.zeros(num_teams, 1)
+    home_field_corrections = np.zeros(num_teams)
 
     i = 0
     for team in teams:
-        for is_home in stats[team]['schedule']['home']:
-            if is_home:
-                home_field_corrections[i] -= 1
-            else:
-                home_field_corrections[i] += 1
-        if week < 4:
+        if week == 0:
             if team in prev_model:
                 prev_home_field_correction = prev_model[team]['home field correction']
                 prev_games_played = prev_stats[team]['games played']['season']
                 prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
                 home_field_corrections[i] += prev_home_field_correction_per_game
+        elif week < 4:
+            for is_home in stats[team]['schedule']['home']:
+                if is_home:
+                    home_field_corrections[i] -= 1
+                else:
+                    home_field_corrections[i] += 1
+            if team in prev_model:
+                prev_home_field_correction = prev_model[team]['home field correction']
+                prev_games_played = prev_stats[team]['games played']['season']
+                prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
+                home_field_corrections[i] += prev_home_field_correction_per_game
+        else:
+            for is_home in stats[team]['schedule']['home']:
+                if is_home:
+                    home_field_corrections[i] -= 1
+                else:
+                    home_field_corrections[i] += 1
 
         home_field_corrections[i] /= max(1, games_played[i])
 
@@ -194,10 +199,10 @@ def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_
 
     return home_field_corrections
 
-def calculate_games_played_normalization(stats, games_played, teams):
+def calculate_games_played_normalization(week, stats, games_played, teams):
 
     num_teams = len(teams)
-    games_played_normalization = np.zeros(num_teams, num_teams)
+    games_played_normalization = np.zeros((num_teams, num_teams))
 
     team_to_index = {}
     i = 0
@@ -205,12 +210,13 @@ def calculate_games_played_normalization(stats, games_played, teams):
         team_to_index[team] = i
         i += 1
 
-    i = 0
-    for team in teams:
-        for opponent in stats[team]['schedule']['opponents']:
-            j = team_to_index[opponent]
-            games_played_normalization[i][j] = 1 / max(1, games_played[i])
-        i += 1
+    if week > 0:
+        i = 0
+        for team in teams:
+            for opponent in stats[team]['schedule']['opponents']:
+                j = team_to_index[opponent]
+                games_played_normalization[i][j] = 1 / max(1, games_played[i])
+            i += 1
 
     return games_played_normalization
 
@@ -221,29 +227,29 @@ def calculate_strengths(week, points_margin, rushing_yards_margin, home_field_co
     rush_yard_coefficient = 0.0837058862488956
     home_field_coefficient = 4
 
-    i = np.eye(num_teams)
-    b = points_margin + rush_yard_coefficient * rushing_yards_margin + home_field_coefficient * home_field_corrections
+    I = np.eye(num_teams)
+    B = points_margin + rush_yard_coefficient * rushing_yards_margin + home_field_coefficient * home_field_corrections
 
     if week < 4:
         i = 0
         for team in teams:
             if team in prev_model:
-                b[i] += prev_model[team]['average opponent strength'] / max(1, games_played[i])
+                B[i] += prev_model[team]['average opponent strength'] / max(1, games_played[i])
             else:
                 pass
             i += 1
 
-    a = i - games_played_normalization
-    strengths = np.linalg.solve(a, b)
+    A = I - games_played_normalization
+    strengths = np.linalg.solve(A, B)
 
     return strengths
 
-def calculate_standard_deviations(year, week, teams):
+def calculate_standard_deviations(year, week, prev_model, teams):
 
     num_teams = len(teams)
 
-    strengths = np.zeros(num_teams, week - 1)
     if week > 0:
+        strengths = np.zeros((num_teams, week))
         i = 0
         for team in teams:
             for w in range(1, week):
@@ -252,6 +258,6 @@ def calculate_standard_deviations(year, week, teams):
             i += 1
         standard_deviations = np.std(strengths, axis=2)
     else:
-        standard_deviations = np.zeros(num_teams, 1)
+        standard_deviations = np.zeros(num_teams)
 
     return standard_deviations
