@@ -41,11 +41,11 @@ def predict(year, week):
     for game in scores['games']:
 
         # Get away team strength
-        away_team = game['away']['names']['standard']
+        away_team = game['game']['away']['names']['standard']
         away_team_strength = rankings[away_team]['strength']
 
         # Get home team strength and add home field advantage
-        home_team = game['home']['names']['standard']
+        home_team = game['game']['home']['names']['standard']
         home_team_strength = rankings[home_team]['strength'] + 4
 
         # Pick the winner based on team strength
@@ -57,7 +57,7 @@ def predict(year, week):
             predicted_margin_of_victory = away_team_strength - home_team_strength
 
         # Calculate the game interest score
-        game_interest = rankings[away_team]['score'] + rankings[home_team]['score'] - predicted_margin_of_victory
+        game_interest = rankings[away_team]['team score'] + rankings[home_team]['team score'] - predicted_margin_of_victory
 
         # Pack predictions
         predictions.append({
@@ -76,16 +76,16 @@ def predict(year, week):
     for prediction in predictions:
 
         # Print to console in pretty format
-        print('{0} @ {1}: Predicted Winner: {2}, Predicted MoV: {3}, Game Interest: {4}'.format(
+        print('{0} @ {1}: Predicted Winner: {2}, Predicted MoV: {3:.1f}, Game Interest: {4:.1f}'.format(
             prediction['away team'], prediction['home team'], prediction['predicted winner'], prediction['predicted margin of victory'], prediction['game interest']))
 
         # Print to file string in csv format
-        predictions_file_string += '{0},{1},{2},{3},{4}\n'.format(
+        predictions_file_string += '{0},{1},{2},{3:.1f},{4:.1f}\n'.format(
             prediction['away team'], prediction['home team'], prediction['predicted winner'], prediction['predicted margin of victory'], prediction['game interest'])
         
     # Create the predictions file with absolute path
     absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}\\predictions\\{1}\\predictions-{1}-{2:02}.json'.format(absolute_path, year, week)
+    filename = '{0}\\predictions\\{1}\\predictions-{1}-{2:02}.csv'.format(absolute_path, year, week)
     with open(filename, 'w') as file:
         file.write(predictions_file_string)
     
