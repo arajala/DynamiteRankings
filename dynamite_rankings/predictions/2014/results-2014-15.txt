@@ -1,0 +1,15 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+WRONG,UCF,EastCarolina,EastCarolina,UCF,-9.1,2
+RIGHT,NorthernIllinois,BowlingGreen,NorthernIllinois,NorthernIllinois,13.3,34
+RIGHT,Arizona,Oregon,Oregon,Oregon,13.7,38
+RIGHT,IowaState,TCU,TCU,TCU,56.1,52
+WRONG,SouthernMethodist,Connecticut,Connecticut,SouthernMethodist,-22.8,7
+RIGHT,Houston,Cincinnati,Cincinnati,Cincinnati,6.8,7
+RIGHT,LouisianaTech,Marshall,Marshall,Marshall,14.3,3
+WRONG,OklahomaState,Oklahoma,Oklahoma,OklahomaState,-44.0,3
+RIGHT,Alabama,Missouri,Alabama,Alabama,22.5,29
+RIGHT,Temple,Tulane,Temple,Temple,7.4,7
+RIGHT,KansasState,Baylor,Baylor,Baylor,15.4,11
+WRONG,FloridaState,GeorgiaTech,GeorgiaTech,FloridaState,-19.0,2
+WRONG,Wisconsin,OhioState,Wisconsin,OhioState,-3.5,59
+RIGHT,FresnoState,BoiseState,BoiseState,BoiseState,34.0,14

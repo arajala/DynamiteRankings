@@ -1,0 +1,2 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+RIGHT,Navy,Army,Navy,Navy,15.8,4

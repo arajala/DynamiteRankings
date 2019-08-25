@@ -1,0 +1,17 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+RIGHT,NorthernIllinois,Buffalo,NorthernIllinois,NorthernIllinois,0.3,1
+WRONG,Utah,Washington,Utah,Washington,-4.1,7
+RIGHT,FCS,IowaState,IowaState,IowaState,49.5,3
+WRONG,Marshall,VirginiaTech,Marshall,VirginiaTech,-3.8,21
+RIGHT,LouisianaLafayette,AppalachianState,AppalachianState,AppalachianState,27.3,11
+RIGHT,Texas,Oklahoma,Oklahoma,Oklahoma,17.9,12
+RIGHT,EastCarolina,NorthCarolinaState,NorthCarolinaState,NorthCarolinaState,26.8,55
+RIGHT,Akron,SouthCarolina,SouthCarolina,SouthCarolina,36.3,25
+RIGHT,UAB,MiddleTennessee,UAB,UAB,6.4,2
+RIGHT,FCS,Liberty,Liberty,Liberty,14.1,35
+RIGHT,Stanford,California,Stanford,Stanford,3.5,10
+RIGHT,Memphis,UCF,UCF,UCF,7.1,15
+RIGHT,Alabama,Georgia,Alabama,Alabama,5.3,7
+RIGHT,FresnoState,BoiseState,FresnoState,FresnoState,1.0,3
+RIGHT,Northwestern,OhioState,OhioState,OhioState,18.3,21
+RIGHT,Clemson,Pittsburgh,Clemson,Clemson,35.6,32

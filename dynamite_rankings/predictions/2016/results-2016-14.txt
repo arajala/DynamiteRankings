@@ -1,0 +1,17 @@
+Outcome,AwayTeam,HomeTeam,PredictedWinner,Winner,PredictedMoV,MoV
+RIGHT,WesternMichigan,Ohio,WesternMichigan,WesternMichigan,27.2,6
+RIGHT,Colorado,Washington,Washington,Washington,4.0,31
+RIGHT,KansasState,TCU,KansasState,KansasState,5.1,24
+WRONG,Troy,GeorgiaSouthern,Troy,GeorgiaSouthern,-5.1,4
+WRONG,Temple,Navy,Navy,Temple,-14.3,24
+RIGHT,LouisianaTech,WesternKentucky,WesternKentucky,WesternKentucky,17.2,14
+RIGHT,OklahomaState,Oklahoma,Oklahoma,Oklahoma,21.3,18
+RIGHT,NewMexicoState,SouthAlabama,SouthAlabama,SouthAlabama,20.1,7
+RIGHT,LouisianaLafayette,LouisianaMonroe,LouisianaLafayette,LouisianaLafayette,10.9,27
+RIGHT,Baylor,WestVirginia,WestVirginia,WestVirginia,13.4,3
+RIGHT,Alabama,Florida,Alabama,Alabama,37.9,38
+RIGHT,GeorgiaState,Idaho,Idaho,Idaho,13.2,25
+RIGHT,ArkansasState,TexasState,ArkansasState,ArkansasState,32.9,22
+RIGHT,SanDiegoState,Wyoming,SanDiegoState,SanDiegoState,8.3,3
+RIGHT,Clemson,VirginiaTech,Clemson,Clemson,16.5,7
+WRONG,Wisconsin,PennState,Wisconsin,PennState,-6.9,7

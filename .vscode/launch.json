@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Rank",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\rank.py",
+            "args": ["2019", "0"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Predict",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\predict.py",
+            "args": ["2019", "1"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Evaluate",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\evaluate.py",
+            "args": ["2019", "1"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Read Predictions",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\read_predictions.py",
+            "args": ["2019", "1"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Read Rankings",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\read_rankings.py",
+            "args": ["2019", "0"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Read Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\read_model.py",
+            "args": ["2019", "0"],
+            "console": "integratedTerminal"
+        }
+    ]
+}
