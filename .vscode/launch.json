@@ -40,7 +40,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\read_predictions.py",
-            "args": ["2018", "1"],
+            "args": ["2019", "1"],
             "console": "integratedTerminal"
         },
         {
@@ -48,7 +48,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\read_rankings.py",
-            "args": ["2017", "11"],
+            "args": ["2019", "0"],
             "console": "integratedTerminal"
         },
         {
@@ -56,7 +56,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\read_model.py",
-            "args": ["2018", "8"],
+            "args": ["2019", "0"],
             "console": "integratedTerminal"
         }
     ]
