@@ -20,17 +20,9 @@ import numpy as np
 from read_teams import read_teams
 from read_stats import read_stats
 from read_model import read_model
-from read_number_of_weeks import read_number_of_weeks
 
 
 def calculate_model(year, week, stats, teams):
-
-    # Check if the week is 'bowl' week
-    num_weeks = read_number_of_weeks(year)
-    if type(week) is str:
-        week = num_weeks + 1
-    elif week > num_weeks:
-        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
 
     if week < 4:
         prev_stats = read_stats(year - 1, 'bowl')
@@ -70,7 +62,7 @@ def calculate_model(year, week, stats, teams):
     for team in model:
 
         # Print to file string in csv format
-        model_file_string += '{0},{1},{2},{3},{4},{5},{6},{7}\n'.format(
+        model_file_string += '{0},{1},{2},{3},{4},{5},{6},{7:.0f}\n'.format(
             team, model[team]['strength'], model[team]['standard deviation'], model[team]['points margin'], model[team]['average opponent strength'], model[team]['rushing yards margin'], model[team]['home field correction'], model[team]['games played'])
         
     # Create the predictions file with absolute path
@@ -256,7 +248,7 @@ def calculate_standard_deviations(year, week, prev_model, teams):
                 prev_model = read_model(year, w)
                 strengths[i][w - 1] = prev_model[team]['strength']
             i += 1
-        standard_deviations = np.std(strengths, axis=2)
+        standard_deviations = np.std(strengths, axis=1)
     else:
         standard_deviations = np.zeros(num_teams)
 

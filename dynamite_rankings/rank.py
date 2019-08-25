@@ -20,6 +20,7 @@ import sys
 import numpy as np
 
 from calculate_model import calculate_model
+from read_number_of_weeks import read_number_of_weeks
 from read_rankings import read_rankings
 from read_stats import read_stats
 from read_teams import read_teams
@@ -27,22 +28,30 @@ from read_teams import read_teams
 
 def rank(year, week):
 
-    team_rankings = calculate_team_rankings(year, week)
+    if week == 0:
+        stats = None
+    else:
+        stats = read_stats(year, week)
+
+    # Check if the week is 'bowl' week and read stats
+    num_weeks = read_number_of_weeks(year)
+    if type(week) is str:
+        week = num_weeks + 1
+    elif week > num_weeks:
+        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
+
+    teams, _ = read_teams(year)
+
+    team_rankings = calculate_team_rankings(year, week, stats, teams)
 
     calculate_conference_rankings(year, week, team_rankings)
 
     calculate_division_rankings(year, week, team_rankings)
 
-def calculate_team_rankings(year, week):
-
-    if week > 0:
-        stats = read_stats(year, week)
-    else:
-        stats = None
-
-    teams, _ = read_teams(year)
+def calculate_team_rankings(year, week, stats, teams):
     
     _, strengths, standard_deviations = calculate_model(year, week, stats, teams)
+
     # strengths = get_model_array(model, 'strength')
     normalized_strengths = strengths - min(strengths)
     # standard_deviations = get_model_array(model, 'standard deviation')
@@ -88,7 +97,7 @@ def calculate_team_rankings(year, week):
     for team in rankings:
 
         # Print to file string in csv format
-        team_rankings_file_string += '{0},{1},{2},{3},{4},{5},{6}\n'.format(
+        team_rankings_file_string += '{0},{1:.0f},{2:.0f},{3:.0f},{4},{5},{6}\n'.format(
             team, rankings[team]['rank'], rankings[team]['previous rank'], rankings[team]['delta rank'], rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
         
     teams_list = []
@@ -97,7 +106,7 @@ def calculate_team_rankings(year, week):
 
     for index in sort_indexes:
         team = teams_list[index]
-        team_rankings_string = '{0} ({1}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}'.format(
+        team_rankings_string = '{0:.0f} ({1:.0f}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}'.format(
             rankings[team]['rank'], rankings[team]['delta rank'], team, rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
         print(team_rankings_string)
 
@@ -117,7 +126,7 @@ def calculate_division_rankings(year, week, team_rankings):
 
 def get_wins_array(stats, teams):
     num_teams = len(teams)
-    wins = np.zeros(num_teams, 1)
+    wins = np.zeros(num_teams)
 
     i = 0
     for team in teams:
@@ -128,7 +137,7 @@ def get_wins_array(stats, teams):
 
 def get_games_played_array(stats, teams):
     num_teams = len(teams)
-    games_played = np.zeros(num_teams, 1)
+    games_played = np.zeros(num_teams)
 
     i = 0
     for team in teams:
