@@ -97,7 +97,8 @@ def evaluate(year, week):
 
     # Create the results file with absolute path
     absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}\\predictions\\{1}\\results-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    filename = '{0}/predictions/{1}/results-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, 'w') as file:
         file.write(results_file_string)
     

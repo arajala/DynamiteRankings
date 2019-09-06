@@ -67,7 +67,8 @@ def calculate_model(year, week, stats, teams):
         
     # Create the predictions file with absolute path
     absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}\\models\\{1}\\model-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    filename = '{0}/models/{1}/model-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, 'w') as file:
         file.write(model_file_string)
 
