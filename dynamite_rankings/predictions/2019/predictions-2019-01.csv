@@ -1,5 +1,5 @@
 AwayTeam,HomeTeam,PredictedWinner,PredictedMoV,GameInterest
-Florida,MiamiFL,Florida,8.5,59.1
+MiamiFL,Florida,Florida,16.5,51.1
 Virginia,Pittsburgh,Pittsburgh,6.1,49.7
 Utah,BrighamYoung,Utah,6.5,46.8
 Northwestern,Stanford,Northwestern,2.8,46.5
@@ -26,11 +26,11 @@ SouthernMethodist,ArkansasState,ArkansasState,12.8,23.3
 Arizona,Hawaii,Arizona,11.9,21.5
 UCLA,Cincinnati,Cincinnati,30.0,21.3
 MiddleTennessee,Michigan,Michigan,38.2,20.0
+Syracuse,Liberty,Syracuse,26.2,19.4
 MississippiState,LouisianaLafayette,MississippiState,40.6,18.8
 LouisianaTech,Texas,Texas,28.0,18.7
 Indiana,BallState,Indiana,20.8,14.0
 Wisconsin,SouthFlorida,Wisconsin,33.3,13.7
-Syracuse,Liberty,Syracuse,31.7,11.3
 Akron,Illinois,Illinois,15.6,10.3
 Tulsa,MichiganState,MichiganState,32.6,10.0
 Massachusetts,Rutgers,Rutgers,14.0,8.0
@@ -47,8 +47,8 @@ FCS,BowlingGreen,BowlingGreen,10.4,-4.4
 FCS,SanJoseState,SanJoseState,14.2,-6.3
 FCS,UTSA,UTSA,15.2,-6.8
 FCS,CentralMichigan,CentralMichigan,18.0,-8.2
+FCS,OldDominion,OldDominion,22.1,-10.3
 FCS,WesternKentucky,WesternKentucky,24.1,-11.3
-FCS,OldDominion,OldDominion,25.6,-12.0
 FCS,NewMexico,NewMexico,25.6,-12.0
 TexasState,TexasAM,TexasAM,63.0,-13.3
 FCS,UNLV,UNLV,30.7,-14.6
