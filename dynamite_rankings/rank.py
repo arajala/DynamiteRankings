@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import statistics
 import sys
 
 import numpy as np
@@ -44,9 +45,9 @@ def rank(year, week):
 
     team_rankings = calculate_team_rankings(year, week, stats, teams)
 
-    calculate_conference_rankings(year, week, team_rankings)
+    calculate_conference_rankings(year, week, teams, team_rankings)
 
-    calculate_division_rankings(year, week, team_rankings)
+    calculate_division_rankings(year, week, teams, team_rankings)
 
 def calculate_team_rankings(year, week, stats, teams):
     
@@ -119,11 +120,85 @@ def calculate_team_rankings(year, week, stats, teams):
 
     return rankings
 
-def calculate_conference_rankings(year, week, team_rankings):
-    pass
+def calculate_conference_rankings(year, week, teams, team_rankings):
 
-def calculate_division_rankings(year, week, team_rankings):
-    pass
+    # Make lists of all the team scores in each conference
+    conference_rankings = {}
+    for team in teams:
+        conference = teams[team]['conference']
+        if conference not in conference_rankings:
+            conference_rankings[conference] = []
+        conference_rankings[conference].append(team_rankings[team]['team score'])
+
+    # Convert dictionary to averaged list for sorting
+    sorted_conference_rankings = []
+    for conference in conference_rankings:
+        sorted_conference_rankings.append({
+            'conference': conference,
+            'score': statistics.mean(conference_rankings[conference])
+        })
+    
+    # Sort conference rankings by average team score
+    sorted_conference_rankings = sorted(sorted_conference_rankings, key=lambda p: p['score'], reverse=True)
+
+    # Print conference rankings
+    rank = 1
+    conference_rankings_file_string = 'Conference,Score\n'
+    for conference_ranking in sorted_conference_rankings:
+
+        # Print to file string in csv format
+        conference_rankings_file_string += '{0},{1:.1f}\n'.format(conference_ranking['conference'], conference_ranking['score'])
+
+        # Print to console in pretty format
+        print('{0}: {1}, Score: {2:.1f}'.format(rank, conference_ranking['conference'], conference_ranking['score']))
+        rank += 1
+
+    # Create the conference rankings file with absolute path
+    absolute_path = os.path.dirname(os.path.realpath(__file__))
+    filename = '{0}/rankings/{1}/conference_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    with open(filename, 'w') as file:
+        file.write(conference_rankings_file_string)
+
+def calculate_division_rankings(year, week, teams, team_rankings):
+
+    # Make lists of all the team scores in each division
+    division_rankings = {}
+    for team in teams:
+        division = teams[team]['division']
+        if division not in division_rankings:
+            division_rankings[division] = []
+        division_rankings[division].append(team_rankings[team]['team score'])
+
+    # Convert dictionary to averaged list for sorting
+    sorted_division_rankings = []
+    for division in division_rankings:
+        sorted_division_rankings.append({
+            'division': division,
+            'score': statistics.mean(division_rankings[division])
+        })
+    
+    # Sort division rankings by average team score
+    sorted_division_rankings = sorted(sorted_division_rankings, key=lambda p: p['score'], reverse=True)
+
+    # Print division rankings
+    rank = 1
+    division_rankings_file_string = 'Division,Score\n'
+    for division_ranking in sorted_division_rankings:
+
+        # Print to file string in csv format
+        division_rankings_file_string += '{0},{1:.1f}\n'.format(division_ranking['division'], division_ranking['score'])
+
+        # Print to console in pretty format
+        print('{0}: {1}, Score: {2:.1f}'.format(rank, division_ranking['division'], division_ranking['score']))
+        rank += 1
+
+    # Create the division rankings file with absolute path
+    absolute_path = os.path.dirname(os.path.realpath(__file__))
+    filename = '{0}/rankings/{1}/division_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    with open(filename, 'w') as file:
+        file.write(division_rankings_file_string)
 
 def get_wins_array(stats, teams):
     num_teams = len(teams)
