@@ -14,12 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import json
 import os
 import sys
+import time
+from urllib.request import urlopen
 
 from read_number_of_weeks import read_number_of_weeks
 from read_rankings import read_rankings
 from read_scores import read_scores
+from read_stadiums import read_stadiums
 from read_teams import read_teams
 
 
@@ -28,6 +32,8 @@ def predict(year, week):
     scores = read_scores(year, week)
 
     rankings = read_rankings(year, week - 1)
+
+    home_stadiums = read_stadiums(year)
 
     # Check if the week is 'bowl' week
     num_weeks = read_number_of_weeks(year)
@@ -40,13 +46,50 @@ def predict(year, week):
     predictions = []
     for game in scores['games']:
 
-        # Get away team strength
+        # Get the team names
         away_team = game['game']['away']['names']['standard']
+        home_team = game['game']['home']['names']['standard']
+
+        # Try to download game info for location information
+        game_center_url = game['game']['url']
+        game_info_url = 'https://data.ncaa.com/casablanca{0}/gameInfo.json'.format(game_center_url)
+        num_retries = 3
+        success = False
+        while num_retries > 0:
+            try:
+                game_info = download_game_info(game_info_url)
+                num_retries = 0
+                success = True
+            except Exception:
+                print('Error downloading game info, retrying...')
+                num_retries -= 1
+                time.sleep(1)
+
+        # Determine home field advantage
+        if success:
+
+            # Get the stadium name, including city/state
+            translation_table = str.maketrans('', '', '/-&() .;\'\n\t\r')
+            stadium = game_info['venue']['name'].translate(translation_table)
+            city = game_info['venue']['city'].translate(translation_table)
+            state = game_info['venue']['state'].translate(translation_table)
+            stadium_full_name = '{0}-{1}-{2}'.format(stadium, city, state)
+
+            # Check if this is a true home game or not
+            if stadium_full_name == home_stadiums[home_team]:
+                home_field_advantage = 4
+            else:
+                print('{0} @ {1}: Neutral site game detected'.format(away_team, home_team))
+                home_field_advantage = 0
+        else:
+            print('Failed to download game info, assuming true home game')
+            home_field_advantage = 4
+
+        # Get away team strength
         away_team_strength = rankings[away_team]['strength']
 
         # Get home team strength and add home field advantage
-        home_team = game['game']['home']['names']['standard']
-        home_team_strength = rankings[home_team]['strength'] + 4
+        home_team_strength = rankings[home_team]['strength'] + home_field_advantage
 
         # Pick the winner based on team strength
         if home_team_strength >= away_team_strength:
@@ -89,6 +132,12 @@ def predict(year, week):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, 'w') as file:
         file.write(predictions_file_string)
+
+def download_game_info(game_info_url):
+    web_response = urlopen(game_info_url)
+    web_data = web_response.read()
+    game_info = json.loads(web_data)
+    return game_info
     
 if __name__ == '__main__':
     year = int(sys.argv[1])
