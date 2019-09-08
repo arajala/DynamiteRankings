@@ -98,7 +98,7 @@ def calculate_team_rankings(year, week, stats, teams):
     for team in rankings:
 
         # Print to file string in csv format
-        team_rankings_file_string += '{0},{1:.0f},{2:.0f},{3:.0f},{4},{5},{6}\n'.format(
+        team_rankings_file_string += '{0},{1:.0f},{2:.0f},{3:.0f},{4:.1f},{5:.1f},{6:.1f}\n'.format(
             team, rankings[team]['rank'], rankings[team]['previous rank'], rankings[team]['delta rank'], rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
         
     teams_list = []
