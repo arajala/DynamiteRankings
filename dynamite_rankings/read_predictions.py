@@ -32,7 +32,7 @@ def read_predictions(year, week):
 
     # Open predictions file with absolute path
     absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}\\predictions\\{1}\\predictions-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    filename = '{0}/predictions/{1}/predictions-{1}-{2:02}.csv'.format(absolute_path, year, week)
     with open(filename) as file:
 
         predictions = []
