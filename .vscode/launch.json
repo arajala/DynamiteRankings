@@ -16,7 +16,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\rank.py",
-            "args": ["2019", "14"],
+            "args": ["2021", "0"],
             "console": "integratedTerminal"
         },
         {
@@ -24,7 +24,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\predict.py",
-            "args": ["2019", "15"],
+            "args": ["2021", "1"],
             "console": "integratedTerminal"
         },
         {
