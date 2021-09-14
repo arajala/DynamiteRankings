@@ -14,25 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import os
+# Add the root package directory to path for importing
+# This is so user does not need to run setup.py or modify PYTHONPATH
+from os.path import dirname, join, realpath
 import sys
+root = dirname(dirname(realpath(__file__)))
+sys.path.append(root)
+sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-from read_number_of_weeks import read_number_of_weeks
+# Standard imports
+import json
+import sys
+import the_kick_is_bad
+from the_kick_is_bad import utils
 
 
 def read_rankings(year, week):
 
     # Check if the week is 'bowl' week
-    num_weeks = read_number_of_weeks(year)
-    if type(week) is str:
-        week = num_weeks + 1
-    elif week > num_weeks:
-        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
+    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
+    week, _ = utils.check_week(week, num_weeks)
 
     # Open rankings file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/rankings/{1}/team_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/{year}/team_rankings-{year}-{week:02}.csv"
     with open(filename) as file:
 
         rankings = {}
@@ -45,7 +50,7 @@ def read_rankings(year, week):
         while ranking_line:
 
             # Split the ranking data
-            ranking = ranking_line.split(',')
+            ranking = ranking_line.split(",")
             team = ranking[0]
             rank = ranking[1]
             previous_rank = ranking[2]
@@ -56,22 +61,23 @@ def read_rankings(year, week):
 
             # Pack ranking structure
             rankings[team] = {
-                'rank': int(rank),
-                'previous rank': int(previous_rank),
-                'delta rank': int(delta_rank),
-                'team score': float(team_score),
-                'strength': float(strength),
-                'standard deviation': float(standard_deviation)
+                "rank": int(rank),
+                "previous rank": int(previous_rank),
+                "delta rank": int(delta_rank),
+                "team score": float(team_score),
+                "strength": float(strength),
+                "standard deviation": float(standard_deviation)
             }
 
             ranking_line = file.readline().strip()
 
         return rankings
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     year = int(sys.argv[1])
     week = sys.argv[2]
-    if week != 'bowl':
+    if week != "bowl":
         week = int(week)
     rankings = read_rankings(year, week)
     rankings_string = json.dumps(rankings, indent=2)
