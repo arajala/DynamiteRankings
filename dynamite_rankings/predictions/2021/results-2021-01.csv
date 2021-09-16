@@ -13,11 +13,16 @@ BoiseState,UCF,UCF,RIGHT,4.3,5
 NorthCarolina,VirginiaTech,NorthCarolina,WRONG,5.8,-7
 Nevada,California,California,WRONG,2.0,-5
 KentState,TexasAM,TexasAM,RIGHT,26.8,31
+Stanford,KansasState,Stanford,WRONG,1.8,-17
 WestVirginia,Maryland,Maryland,RIGHT,12.5,6
 LouisianaLafayette,Texas,Texas,RIGHT,19.1,20
 OregonState,Purdue,Purdue,RIGHT,17.0,9
 MichiganState,Northwestern,Northwestern,WRONG,31.0,-17
+Tulane,Oklahoma,Oklahoma,RIGHT,22.2,5
 Army,GeorgiaState,Army,RIGHT,13.7,33
+Alabama,MiamiFL,Alabama,RIGHT,49.1,31
+Louisville,OleMiss,OleMiss,RIGHT,26.2,19
+TexasTech,Houston,Houston,WRONG,10.7,-17
 Marshall,Navy,Marshall,RIGHT,15.3,42
 Hawaii,UCLA,UCLA,RIGHT,31.6,34
 EastCarolina,AppalachianState,AppalachianState,RIGHT,23.2,14
@@ -51,6 +56,7 @@ FCS,Connecticut,Connecticut,WRONG,22.5,-10
 FCS,UNLV,UNLV,WRONG,28.2,-2
 FCS,WesternKentucky,WesternKentucky,RIGHT,29.3,38
 FCS,ArkansasState,ArkansasState,RIGHT,35.4,19
+UAB,FCS,UAB,RIGHT,44.2,31
 FCS,Troy,Troy,RIGHT,38.0,52
 FCS,Vanderbilt,Vanderbilt,WRONG,42.2,-20
 FCS,BostonCollege,BostonCollege,RIGHT,44.4,51

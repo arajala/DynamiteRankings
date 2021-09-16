@@ -14,25 +14,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import os
+# Add the root package directory to path for importing
+# This is so user does not need to run setup.py or modify PYTHONPATH
+from os.path import dirname, join, realpath
 import sys
+root = dirname(dirname(realpath(__file__)))
+sys.path.append(root)
+sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-from read_number_of_weeks import read_number_of_weeks
+import json
+import sys
+import the_kick_is_bad
+from the_kick_is_bad import utils
 
 
 def read_model(year, week):
 
     # Check if the week is 'bowl' week
-    num_weeks = read_number_of_weeks(year)
-    if type(week) is str:
-        week = num_weeks + 1
-    elif week > num_weeks:
-        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
+    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
+    week, _ = utils.check_week(week, num_weeks)
 
     # Open model file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/models/{1}/model-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/{year}/model-{year}-{week:02}.csv"
     with open(filename) as file:
 
         model = {}
@@ -45,7 +49,7 @@ def read_model(year, week):
         while model_line:
 
             # Split the model data
-            model_data = model_line.split(',')
+            model_data = model_line.split(",")
             team = model_data[0]
             strength = model_data[1]
             standard_deviation = model_data[2]
@@ -57,23 +61,24 @@ def read_model(year, week):
 
             # Pack ranking structure
             model[team] = {
-                'strength': float(strength),
-                'standard deviation': float(standard_deviation),
-                'points margin': float(points_margin),
-                'average opponent strength': float(average_opponent_strength),
-                'rushing yards margin': float(rushing_yards_margin),
-                'home field correction': float(home_field_correction),
-                'games played': int(games_played)
+                "strength": float(strength),
+                "standard deviation": float(standard_deviation),
+                "points margin": float(points_margin),
+                "average opponent strength": float(average_opponent_strength),
+                "rushing yards margin": float(rushing_yards_margin),
+                "home field correction": float(home_field_correction),
+                "games played": int(games_played)
             }
 
             model_line = file.readline().strip()
 
         return model
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     year = int(sys.argv[1])
     week = sys.argv[2]
-    if week != 'bowl':
+    if week != "bowl":
         week = int(week)
     model = read_model(year, week)
     model_string = json.dumps(model, indent=2)

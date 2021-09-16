@@ -14,25 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import os
+# Add the root package directory to path for importing
+# This is so user does not need to run setup.py or modify PYTHONPATH
+from os.path import dirname, join, realpath
 import sys
+root = dirname(dirname(realpath(__file__)))
+sys.path.append(root)
+sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-from read_number_of_weeks import read_number_of_weeks
+# Standard imports
+import json
+import sys
+import the_kick_is_bad
+from the_kick_is_bad import utils
 
 
 def read_predictions(year, week):
 
     # Check if the week is 'bowl' week
-    num_weeks = read_number_of_weeks(year)
-    if type(week) is str:
-        week = num_weeks + 1
-    elif week > num_weeks:
-        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
+    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
+    week, _ = utils.check_week(week, num_weeks)
 
     # Open predictions file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/predictions/{1}/predictions-{1}-{2:02}.csv'.format(absolute_path, year, week)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/{year}/predictions-{year}-{week:02}.csv"
     with open(filename) as file:
 
         predictions = []
@@ -45,7 +50,7 @@ def read_predictions(year, week):
         while prediction_line:
 
             # Split the prediction data
-            prediction = prediction_line.split(',')
+            prediction = prediction_line.split(",")
             away_team = prediction[0]
             home_team = prediction[1]
             predicted_winner = prediction[2]
@@ -54,21 +59,22 @@ def read_predictions(year, week):
 
             # Pack prediction structure
             predictions.append({
-                'away team': away_team,
-                'home team': home_team,
-                'predicted winner': predicted_winner,
-                'predicted margin of victory': float(predicted_margin_of_victory),
-                'game interest': float(game_interest)
+                "away team": away_team,
+                "home team": home_team,
+                "predicted winner": predicted_winner,
+                "predicted margin of victory": float(predicted_margin_of_victory),
+                "game interest": float(game_interest)
             })
 
             prediction_line = file.readline().strip()
 
         return predictions
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     year = int(sys.argv[1])
     week = sys.argv[2]
-    if week != 'bowl':
+    if week != "bowl":
         week = int(week)
     predictions = read_predictions(year, week)
     predictions_string = json.dumps(predictions, indent=2)

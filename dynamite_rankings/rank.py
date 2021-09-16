@@ -14,17 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-import statistics
+# Add the root package directory to path for importing
+# This is so user does not need to run setup.py or modify PYTHONPATH
+from os.path import dirname, join, realpath
 import sys
+root = dirname(dirname(realpath(__file__)))
+sys.path.append(join(root, "TheKickIsBAD"))
 
+# Standard imports
 import numpy as np
+import statistics
+import the_kick_is_bad
+from the_kick_is_bad import utils
 
-from calculate_model import calculate_model
-from read_number_of_weeks import read_number_of_weeks
-from read_rankings import read_rankings
-from read_stats import read_stats
-from read_teams import read_teams
+# DynamiteRankings imports
+from models.calculate_model import calculate_model
+from rankings.read_rankings import read_rankings
 
 
 def rank(year, week):
@@ -32,16 +37,13 @@ def rank(year, week):
     if week == 0:
         stats = None
     else:
-        stats = read_stats(year, week)
+        stats = the_kick_is_bad.read_stats(year, week)
 
     # Check if the week is 'bowl' week and read stats
-    num_weeks = read_number_of_weeks(year)
-    if type(week) is str:
-        week = num_weeks + 1
-    elif week > num_weeks:
-        raise Exception('Value of week should not exceed {0}. Did you mean "bowl"?'.format(num_weeks))
+    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
+    week, _ = utils.check_week(week, num_weeks)
 
-    teams, _ = read_teams(year)
+    teams, _ = the_kick_is_bad.read_teams(year)
 
     team_rankings = calculate_team_rankings(year, week, stats, teams)
 
@@ -53,9 +55,9 @@ def calculate_team_rankings(year, week, stats, teams):
     
     _, strengths, standard_deviations = calculate_model(year, week, stats, teams)
 
-    # strengths = get_model_array(model, 'strength')
+    # strengths = get_model_array(model, "strength")
     normalized_strengths = strengths - min(strengths)
-    # standard_deviations = get_model_array(model, 'standard deviation')
+    # standard_deviations = get_model_array(model, "standard deviation")
     if week > 0:
         prev_rankings = read_rankings(year, week - 1)
 
@@ -73,33 +75,38 @@ def calculate_team_rankings(year, week, stats, teams):
     if week > 0:
         for team in teams:
             rankings[team] = {
-                'rank': np.where(sort_indexes == i)[0][0] + 1,
-                'previous rank': prev_rankings[team]['rank'],
-                'delta rank': prev_rankings[team]['rank'] - (np.where(sort_indexes == i)[0][0] + 1),
-                'team score': team_scores[i],
-                'strength': strengths[i],
-                'standard deviation': standard_deviations[i]
+                "rank": np.where(sort_indexes == i)[0][0] + 1,
+                "previous rank": prev_rankings[team]["rank"],
+                "delta rank": prev_rankings[team]["rank"] - (np.where(sort_indexes == i)[0][0] + 1),
+                "team score": team_scores[i],
+                "strength": strengths[i],
+                "standard deviation": standard_deviations[i]
             }
             i += 1
     else:
         for team in teams:
             rankings[team] = {
-                'rank': np.where(sort_indexes == i)[0][0] + 1,
-                'previous rank': 0,
-                'delta rank': 0 - (np.where(sort_indexes == i)[0][0] + 1),
-                'team score': team_scores[i],
-                'strength': strengths[i],
-                'standard deviation': standard_deviations[i]
+                "rank": np.where(sort_indexes == i)[0][0] + 1,
+                "previous rank": 0,
+                "delta rank": 0 - (np.where(sort_indexes == i)[0][0] + 1),
+                "team score": team_scores[i],
+                "strength": strengths[i],
+                "standard deviation": standard_deviations[i]
             }
             i += 1
 
     # Print teamrankings
-    team_rankings_file_string = 'Team,Rank,PrevRank,DeltaRank,TeamScore,Strength,StandardDeviation\n'
+    team_rankings_file_string = "Team,Rank,PrevRank,DeltaRank,TeamScore,Strength,StandardDeviation\n"
     for team in rankings:
 
         # Print to file string in csv format
-        team_rankings_file_string += '{0},{1:.0f},{2:.0f},{3:.0f},{4:.1f},{5:.1f},{6:.1f}\n'.format(
-            team, rankings[team]['rank'], rankings[team]['previous rank'], rankings[team]['delta rank'], rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
+        team_rankings_file_string += "{0},{1:.0f},{2:.0f},{3:.0f},{4:.1f},{5:.1f},{6:.1f}\n".format(team,
+                                                                                                    rankings[team]["rank"],
+                                                                                                    rankings[team]["previous rank"],
+                                                                                                    rankings[team]["delta rank"],
+                                                                                                    rankings[team]["team score"],
+                                                                                                    rankings[team]["strength"],
+                                                                                                    rankings[team]["standard deviation"])
         
     teams_list = []
     for team in teams:
@@ -107,16 +114,18 @@ def calculate_team_rankings(year, week, stats, teams):
 
     for index in sort_indexes:
         team = teams_list[index]
-        team_rankings_string = '{0:.0f} ({1:.0f}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}'.format(
-            rankings[team]['rank'], rankings[team]['delta rank'], team, rankings[team]['team score'], rankings[team]['strength'], rankings[team]['standard deviation'])
+        team_rankings_string = "{0:.0f} ({1:.0f}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}".format(rankings[team]["rank"],
+                                                                                                                     rankings[team]["delta rank"],
+                                                                                                                     team,
+                                                                                                                     rankings[team]["team score"],
+                                                                                                                     rankings[team]["strength"],
+                                                                                                                     rankings[team]["standard deviation"])
         print(team_rankings_string)
 
     # Create the predictions file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/rankings/{1}/team_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w') as file:
-        file.write(team_rankings_file_string)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/rankings/{year}/team_rankings-{year}-{week:02}.csv"
+    utils.write_string(team_rankings_file_string, filename)
 
     return rankings
 
@@ -125,80 +134,80 @@ def calculate_conference_rankings(year, week, teams, team_rankings):
     # Make lists of all the team scores in each conference
     conference_rankings = {}
     for team in teams:
-        conference = teams[team]['conference']
+        conference = teams[team]["conference"]
         if conference not in conference_rankings:
             conference_rankings[conference] = []
-        conference_rankings[conference].append(team_rankings[team]['team score'])
+        conference_rankings[conference].append(team_rankings[team]["team score"])
 
     # Convert dictionary to averaged list for sorting
     sorted_conference_rankings = []
     for conference in conference_rankings:
         sorted_conference_rankings.append({
-            'conference': conference,
-            'score': statistics.mean(conference_rankings[conference])
+            "conference": conference,
+            "score": statistics.mean(conference_rankings[conference])
         })
     
     # Sort conference rankings by average team score
-    sorted_conference_rankings = sorted(sorted_conference_rankings, key=lambda p: p['score'], reverse=True)
+    sorted_conference_rankings = sorted(sorted_conference_rankings, key=lambda p: p["score"], reverse=True)
 
     # Print conference rankings
     rank = 1
-    conference_rankings_file_string = 'Conference,Score\n'
+    conference_rankings_file_string = "Conference,Score\n"
     for conference_ranking in sorted_conference_rankings:
 
         # Print to file string in csv format
-        conference_rankings_file_string += '{0},{1:.1f}\n'.format(conference_ranking['conference'], conference_ranking['score'])
+        conference = conference_ranking["conference"]
+        score = conference_ranking["score"]
+        conference_rankings_file_string += f"{conference},{score:.1f}\n"
 
         # Print to console in pretty format
-        print('{0}: {1}, Score: {2:.1f}'.format(rank, conference_ranking['conference'], conference_ranking['score']))
+        print(f"{rank}: {conference}, Score: {score:.1f}")
         rank += 1
 
     # Create the conference rankings file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/rankings/{1}/conference_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w') as file:
-        file.write(conference_rankings_file_string)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/rankings/{year}/conference_rankings-{year}-{week:02}.csv"
+    utils.write_string(conference_rankings_file_string, filename)
 
 def calculate_division_rankings(year, week, teams, team_rankings):
 
     # Make lists of all the team scores in each division
     division_rankings = {}
     for team in teams:
-        division = teams[team]['division']
+        division = teams[team]["division"]
         if division not in division_rankings:
             division_rankings[division] = []
-        division_rankings[division].append(team_rankings[team]['team score'])
+        division_rankings[division].append(team_rankings[team]["team score"])
 
     # Convert dictionary to averaged list for sorting
     sorted_division_rankings = []
     for division in division_rankings:
         sorted_division_rankings.append({
-            'division': division,
-            'score': statistics.mean(division_rankings[division])
+            "division": division,
+            "score": statistics.mean(division_rankings[division])
         })
     
     # Sort division rankings by average team score
-    sorted_division_rankings = sorted(sorted_division_rankings, key=lambda p: p['score'], reverse=True)
+    sorted_division_rankings = sorted(sorted_division_rankings, key=lambda p: p["score"], reverse=True)
 
     # Print division rankings
     rank = 1
-    division_rankings_file_string = 'Division,Score\n'
+    division_rankings_file_string = "Division,Score\n"
     for division_ranking in sorted_division_rankings:
 
         # Print to file string in csv format
-        division_rankings_file_string += '{0},{1:.1f}\n'.format(division_ranking['division'], division_ranking['score'])
+        division = division_ranking["division"]
+        score = division_ranking["score"]
+        division_rankings_file_string += f"{division},{score:.1f}\n"
 
         # Print to console in pretty format
-        print('{0}: {1}, Score: {2:.1f}'.format(rank, division_ranking['division'], division_ranking['score']))
+        print(f"{rank}: {division}, Score: {score:.1f}")
         rank += 1
 
     # Create the division rankings file with absolute path
-    absolute_path = os.path.dirname(os.path.realpath(__file__))
-    filename = '{0}/rankings/{1}/division_rankings-{1}-{2:02}.csv'.format(absolute_path, year, week)
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w') as file:
-        file.write(division_rankings_file_string)
+    absolute_path = utils.get_abs_path(__file__)
+    filename = f"{absolute_path}/rankings/{year}/division_rankings-{year}-{week:02}.csv"
+    utils.write_string(division_rankings_file_string, filename)
 
 def get_wins_array(stats, teams):
     num_teams = len(teams)
@@ -206,7 +215,7 @@ def get_wins_array(stats, teams):
 
     i = 0
     for team in teams:
-        wins[i] = stats[team]['record']['wins']['season']
+        wins[i] = stats[team]["record"]["wins"]["season"]
         i += 1
 
     return wins
@@ -217,14 +226,15 @@ def get_games_played_array(stats, teams):
 
     i = 0
     for team in teams:
-        games_played[i] = stats[team]['games played']['season']
+        games_played[i] = stats[team]["games played"]["season"]
         i += 1
 
     return games_played
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     year = int(sys.argv[1])
     week = sys.argv[2]
-    if week != 'bowl':
+    if week != "bowl":
         week = int(week)
     rank(year, week)
