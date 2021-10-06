@@ -32,7 +32,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\evaluate.py",
-            "args": ["2021", "4"],
+            "args": ["2021", "5"],
             "console": "integratedTerminal"
         },
         {
