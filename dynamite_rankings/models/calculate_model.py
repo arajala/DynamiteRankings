@@ -33,7 +33,7 @@ from models.read_model import read_model
 
 def calculate_model(year, week, stats, teams):
 
-    if week < 4:
+    if week < 9:
         prev_stats = the_kick_is_bad.read_stats(year - 1, "bowl")
         prev_model = read_model(year - 1, "bowl")
     else:
@@ -96,7 +96,7 @@ def calculate_games_played(week, stats, teams):
     for team in teams:
         if week == 0:
             games_played[i] = 1
-        elif week < 4:
+        elif week < 9:
             games_played[i] = stats[team]["games played"]["season"] + 1
         else:
             games_played[i] = stats[team]["games played"]["season"]
@@ -117,7 +117,7 @@ def calculate_points_margin(week, stats, prev_stats, games_played, teams):
                 prev_games_played = prev_stats[team]["games played"]["season"]
                 prev_points_margin_per_game = prev_points_margin / max(1, prev_games_played)
                 points_margin[i] = prev_points_margin_per_game
-        elif week < 4:
+        elif week < 9:
             points_margin[i] = sum(stats[team]["points"]["total"]["gained"]) - sum(stats[team]["points"]["total"]["allowed"])
             if team in prev_stats:
                 prev_points_margin = sum(prev_stats[team]["points"]["total"]["gained"]) - sum(prev_stats[team]["points"]["total"]["allowed"])
@@ -149,7 +149,7 @@ def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams)
                 prev_games_played = prev_stats[team]["games played"]["season"]
                 prev_rushing_yards_margin_per_game = prev_rushing_yards_margin / max(1, prev_games_played)
                 rushing_yards_margin[i] = prev_rushing_yards_margin_per_game
-        elif week < 4:
+        elif week < 9:
             rushing_yards_margin[i] = sum(stats[team]["rushing"]["yards"]["gained"]) - sum(stats[team]["rushing"]["yards"]["allowed"])
             if team in prev_stats:
                 prev_rushing_yards_margin = sum(prev_stats[team]["rushing"]["yards"]["gained"]) - sum(prev_stats[team]["rushing"]["yards"]["allowed"])
@@ -181,7 +181,7 @@ def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_
                 prev_games_played = prev_stats[team]["games played"]["season"]
                 prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
                 home_field_corrections[i] += prev_home_field_correction_per_game
-        elif week < 4:
+        elif week < 9:
             for is_home in stats[team]["schedule"]["home"]:
                 if is_home:
                     home_field_corrections[i] -= 1
@@ -236,7 +236,7 @@ def calculate_strengths(week, points_margin, rushing_yards_margin, home_field_co
     I = np.eye(num_teams)
     B = points_margin + rush_yard_coefficient * rushing_yards_margin + home_field_coefficient * home_field_corrections
 
-    if week < 4:
+    if week < 9:
         i = 0
         for team in teams:
             if team in prev_model:
