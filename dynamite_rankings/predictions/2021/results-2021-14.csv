@@ -1,0 +1,12 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+Georgia,Alabama,Georgia,WRONG,12.7,-17
+Baylor,OklahomaState,OklahomaState,WRONG,11.3,-5
+Michigan,Iowa,Michigan,RIGHT,14.2,39
+Houston,Cincinnati,Cincinnati,RIGHT,14.1,15
+Pittsburgh,WakeForest,Pittsburgh,RIGHT,4.2,24
+Oregon,Utah,Utah,RIGHT,8.3,28
+AppalachianState,LouisianaLafayette,AppalachianState,WRONG,5.0,-8
+WesternKentucky,UTSA,UTSA,RIGHT,9.5,8
+UtahState,SanDiegoState,SanDiegoState,WRONG,19.3,-33
+KentState,NorthernIllinois,KentState,WRONG,0.2,-18
+USC,California,California,RIGHT,6.2,10
