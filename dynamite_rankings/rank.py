@@ -34,16 +34,14 @@ from rankings.read_rankings import read_rankings
 
 def rank(year, week):
 
+    teams = the_kick_is_bad.read_teams(year)
+
     if week == 0:
         stats = None
     else:
-        stats = the_kick_is_bad.read_stats(year, week)
+        stats = the_kick_is_bad.read_stats_by_category(year, teams, max_week=week)
 
-    # Check if the week is 'bowl' week and read stats
-    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
-    week, _ = utils.check_week(week, num_weeks)
-
-    teams, _ = the_kick_is_bad.read_teams(year)
+    teams = the_kick_is_bad.read_teams(year)
 
     team_rankings = calculate_team_rankings(year, week, stats, teams)
 
@@ -55,9 +53,7 @@ def calculate_team_rankings(year, week, stats, teams):
     
     _, strengths, standard_deviations = calculate_model(year, week, stats, teams)
 
-    # strengths = get_model_array(model, "strength")
     normalized_strengths = strengths - min(strengths)
-    # standard_deviations = get_model_array(model, "standard deviation")
     if week > 0:
         prev_rankings = read_rankings(year, week - 1)
 
@@ -109,14 +105,18 @@ def calculate_team_rankings(year, week, stats, teams):
                                                                                                     rankings[team]["standard deviation"])
         
     teams_list = []
-    for team in teams:
-        teams_list.append(team)
+    team_names = []
+    for team in teams.values():
+        teams_list.append(team["uniqname"])
+        team_names.append(team["name"])
 
+    print("")
     for index in sort_indexes:
         team = teams_list[index]
+        team_name = team_names[index]
         team_rankings_string = "{0:.0f} ({1:.0f}): {2}, Team Score: {3:.1f}, Strength: {4:.1f}, Std: {5:.1f}".format(rankings[team]["rank"],
                                                                                                                      rankings[team]["delta rank"],
-                                                                                                                     team,
+                                                                                                                     team_name,
                                                                                                                      rankings[team]["team score"],
                                                                                                                      rankings[team]["strength"],
                                                                                                                      rankings[team]["standard deviation"])
@@ -151,6 +151,7 @@ def calculate_conference_rankings(year, week, teams, team_rankings):
     sorted_conference_rankings = sorted(sorted_conference_rankings, key=lambda p: p["score"], reverse=True)
 
     # Print conference rankings
+    print("")
     rank = 1
     conference_rankings_file_string = "Conference,Score\n"
     for conference_ranking in sorted_conference_rankings:
@@ -174,7 +175,12 @@ def calculate_division_rankings(year, week, teams, team_rankings):
     # Make lists of all the team scores in each division
     division_rankings = {}
     for team in teams:
+        conference = teams[team]["conference"]
         division = teams[team]["division"]
+        if division == "":
+            division = conference
+        else:
+            division = f"{conference} - {division}"
         if division not in division_rankings:
             division_rankings[division] = []
         division_rankings[division].append(team_rankings[team]["team score"])
@@ -191,6 +197,7 @@ def calculate_division_rankings(year, week, teams, team_rankings):
     sorted_division_rankings = sorted(sorted_division_rankings, key=lambda p: p["score"], reverse=True)
 
     # Print division rankings
+    print("")
     rank = 1
     division_rankings_file_string = "Division,Score\n"
     for division_ranking in sorted_division_rankings:
@@ -215,7 +222,7 @@ def get_wins_array(stats, teams):
 
     i = 0
     for team in teams:
-        wins[i] = stats[team]["record"]["wins"]["season"]
+        wins[i] = sum(stats[team]["results"]["won"])
         i += 1
 
     return wins
@@ -226,7 +233,7 @@ def get_games_played_array(stats, teams):
 
     i = 0
     for team in teams:
-        games_played[i] = stats[team]["games played"]["season"]
+        games_played[i] = sum(stats[team]["results"]["games played"])
         i += 1
 
     return games_played
@@ -234,7 +241,5 @@ def get_games_played_array(stats, teams):
 
 if __name__ == "__main__":
     year = int(sys.argv[1])
-    week = sys.argv[2]
-    if week != "bowl":
-        week = int(week)
+    week = int(sys.argv[2])
     rank(year, week)

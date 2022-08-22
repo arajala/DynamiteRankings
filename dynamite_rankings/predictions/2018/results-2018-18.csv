@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+buffalo,troy,buffalo,WRONG,0,-10
+houston,army,army,RIGHT,16,56
+northern-illinois,alabama-birmingham,alabama-birmingham,RIGHT,6,24
+memphis,wake-forest,memphis,WRONG,9,-3
+san-diego-state,ohio,ohio,RIGHT,15,27
+western-michigan,brigham-young,brigham-young,RIGHT,6,31
+toledo,florida-international,toledo,WRONG,12,-3
+marshall,south-florida,marshall,RIGHT,7,18
+hawaii,louisiana-tech,louisiana-tech,RIGHT,6,17

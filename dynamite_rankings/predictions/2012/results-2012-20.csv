@@ -1,0 +1,13 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+notre-dame,alabama,alabama,RIGHT,13,28
+kansas-state,oregon,oregon,RIGHT,12,18
+oklahoma,texas-am,texas-am,RIGHT,13,28
+nebraska,georgia,georgia,RIGHT,5,14
+northern-illinois,florida-state,florida-state,RIGHT,18,21
+wisconsin,stanford,stanford,RIGHT,3,6
+michigan,south-carolina,michigan,WRONG,1,-5
+kent-state,arkansas-state,arkansas-state,RIGHT,9,4
+mississippi-state,northwestern,northwestern,RIGHT,9,14
+florida,louisville,florida,WRONG,32,-10
+pittsburgh,mississippi,mississippi,RIGHT,3,21
+purdue,oklahoma-state,oklahoma-state,RIGHT,33,44

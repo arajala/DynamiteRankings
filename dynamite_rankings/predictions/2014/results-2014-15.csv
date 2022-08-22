@@ -1,0 +1,15 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+wisconsin,ohio-state,wisconsin,WRONG,4,-59
+missouri,alabama,alabama,RIGHT,23,29
+arizona,oregon,oregon,RIGHT,15,38
+kansas-state,baylor,baylor,RIGHT,15,11
+georgia-tech,florida-state,georgia-tech,WRONG,19,-2
+louisiana-tech,marshall,marshall,RIGHT,14,3
+central-florida,east-carolina,east-carolina,WRONG,9,-2
+houston,cincinnati,cincinnati,RIGHT,8,7
+bowling-green-state,northern-illinois,northern-illinois,RIGHT,13,34
+fresno-state,boise-state,boise-state,RIGHT,34,14
+oklahoma-state,oklahoma,oklahoma,WRONG,44,-3
+temple,tulane,temple,RIGHT,7,7
+iowa-state,texas-christian,texas-christian,RIGHT,56,52
+southern-methodist,connecticut,connecticut,WRONG,23,-7

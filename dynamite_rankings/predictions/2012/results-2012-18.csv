@@ -1,0 +1,13 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+oregon-state,texas,oregon-state,WRONG,4,-4
+ucla,baylor,baylor,RIGHT,5,23
+rutgers,virginia-tech,virginia-tech,RIGHT,2,3
+texas-christian,michigan-state,texas-christian,WRONG,10,-1
+navy,arizona-state,arizona-state,RIGHT,13,34
+west-virginia,syracuse,west-virginia,WRONG,10,-24
+bowling-green-state,san-jose-state,san-jose-state,RIGHT,15,9
+duke,cincinnati,cincinnati,RIGHT,21,14
+louisiana-monroe,ohio,louisiana-monroe,WRONG,17,-31
+air-force,rice,air-force,WRONG,10,-19
+minnesota,texas-tech,texas-tech,RIGHT,20,3
+western-kentucky,central-michigan,western-kentucky,WRONG,28,-3

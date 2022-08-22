@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+brigham-young,alabama-birmingham,alabama-birmingham,RIGHT,0,3
+marshall,louisiana-lafayette,louisiana-lafayette,RIGHT,2,15
+appalachian-state,western-kentucky,appalachian-state,WRONG,9,-21
+oregon-state,utah-state,oregon-state,WRONG,9,-11
+northern-illinois,coastal-carolina,coastal-carolina,RIGHT,14,6
+texas-el-paso,fresno-state,fresno-state,RIGHT,15,7
+old-dominion,tulsa,tulsa,RIGHT,6,13
+toledo,middle-tennessee-state,toledo,WRONG,11,-7
+eastern-michigan,liberty,liberty,RIGHT,22,36

@@ -1,0 +1,6 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+fresno-state,southern-california,southern-california,RIGHT,16,25
+washington-state,colorado-state,colorado-state,RIGHT,1,3
+tulane,louisiana-lafayette,louisiana-lafayette,RIGHT,4,3
+buffalo,san-diego-state,buffalo,WRONG,7,-25
+ohio,east-carolina,east-carolina,RIGHT,22,17

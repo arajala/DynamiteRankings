@@ -1,0 +1,14 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+oklahoma,alabama,alabama,RIGHT,18,11
+notre-dame,clemson,clemson,RIGHT,25,27
+michigan,florida,michigan,WRONG,8,-26
+west-virginia,syracuse,west-virginia,WRONG,2,-16
+miami-fl,wisconsin,miami-fl,WRONG,4,-32
+iowa-state,washington-state,iowa-state,WRONG,2,-2
+south-carolina,virginia,south-carolina,WRONG,6,-28
+temple,duke,duke,RIGHT,0,29
+purdue,auburn,auburn,RIGHT,9,49
+arkansas-state,nevada,nevada,RIGHT,2,3
+georgia-tech,minnesota,georgia-tech,WRONG,19,-24
+california,texas-christian,texas-christian,RIGHT,6,3
+vanderbilt,baylor,vanderbilt,WRONG,12,-7

@@ -1,3 +1,4 @@
 *.pyc
+*.sh
 .vscode/launch.json
 dynamite_rankings/predictions/2021/predictions-2021-16.xlsx

@@ -1,0 +1,8 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+new-mexico,north-carolina-state,north-carolina-state,RIGHT,1,20
+fresno-state,wisconsin,fresno-state,WRONG,6,-2
+iowa-state,florida-state,florida-state,RIGHT,10,7
+texas-tech,ohio-state,ohio-state,RIGHT,11,24
+colorado-state,virginia,colorado-state,RIGHT,8,6
+arizona-state,nebraska,nebraska,RIGHT,42,38
+arkansas-state,virginia-tech,virginia-tech,RIGHT,66,56

@@ -1,0 +1,15 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+miami-fl,ohio-state,miami-fl,WRONG,2,-7
+iowa,southern-california,southern-california,RIGHT,3,21
+florida-state,georgia,florida-state,WRONG,2,-13
+washington-state,oklahoma,oklahoma,RIGHT,12,20
+notre-dame,north-carolina-state,notre-dame,WRONG,4,-22
+penn-state,auburn,penn-state,WRONG,10,-4
+louisiana-state,texas,texas,RIGHT,7,15
+colorado-state,texas-christian,texas-christian,RIGHT,0,14
+air-force,virginia-tech,virginia-tech,RIGHT,7,7
+tennessee,maryland,maryland,RIGHT,7,27
+florida,michigan,michigan,RIGHT,12,8
+iowa-state,boise-state,boise-state,RIGHT,12,18
+washington,purdue,purdue,RIGHT,9,10
+georgia-tech,fresno-state,georgia-tech,WRONG,21,-9

@@ -1,0 +1,11 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+memphis,western-kentucky,western-kentucky,RIGHT,10,20
+navy,louisiana-tech,navy,WRONG,20,-3
+wyoming,brigham-young,brigham-young,RIGHT,15,3
+ohio,troy,troy,RIGHT,10,5
+vanderbilt,north-carolina-state,north-carolina-state,RIGHT,7,24
+maryland,boston-college,maryland,WRONG,0,-6
+eastern-michigan,old-dominion,old-dominion,RIGHT,8,4
+colorado-state,idaho,colorado-state,WRONG,18,-11
+middle-tennessee-state,hawaii,middle-tennessee-state,WRONG,16,-17
+miami-oh,mississippi-state,mississippi-state,RIGHT,24,1

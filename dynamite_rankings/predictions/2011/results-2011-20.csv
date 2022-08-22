@@ -1,0 +1,7 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+louisiana-state,alabama,louisiana-state,WRONG,3,-21
+kansas-state,arkansas,kansas-state,WRONG,6,-13
+virginia-tech,michigan,michigan,RIGHT,16,3
+arkansas-state,northern-illinois,northern-illinois,RIGHT,3,18
+clemson,west-virginia,west-virginia,RIGHT,5,37
+pittsburgh,southern-methodist,pittsburgh,WRONG,8,-22

@@ -1,0 +1,12 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+ohio-state,louisiana-state,louisiana-state,RIGHT,4,14
+oklahoma,west-virginia,west-virginia,RIGHT,6,20
+arkansas,missouri,arkansas,WRONG,1,-31
+virginia-tech,kansas,kansas,RIGHT,14,3
+illinois,southern-california,southern-california,RIGHT,12,32
+hawaii,georgia,georgia,RIGHT,13,31
+wisconsin,tennessee,tennessee,RIGHT,1,4
+florida,michigan,florida,WRONG,22,-6
+virginia,texas-tech,texas-tech,RIGHT,2,3
+ball-state,rutgers,rutgers,RIGHT,22,22
+bowling-green-state,tulsa,tulsa,RIGHT,15,56

@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+oregon-state,brigham-young,oregon-state,WRONG,4,-24
+north-carolina,pittsburgh,pittsburgh,RIGHT,8,2
+california,utah,california,WRONG,5,-10
+boston-college,southern-california,southern-california,RIGHT,8,11
+boston-college,southern-california,southern-california,RIGHT,8,11
+kentucky,clemson,clemson,RIGHT,4,8
+texas-am,georgia,georgia,RIGHT,9,24
+ohio,marshall,ohio,WRONG,3,-4
+nevada,southern-methodist,nevada,WRONG,43,-35

@@ -1,0 +1,9 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+nebraska,miami-fl,nebraska,WRONG,1,-23
+colorado,oregon,oregon,RIGHT,0,22
+maryland,florida,florida,RIGHT,8,33
+michigan,tennessee,tennessee,RIGHT,1,28
+illinois,louisiana-state,illinois,WRONG,4,-13
+virginia-tech,florida-state,virginia-tech,WRONG,8,-13
+ohio-state,south-carolina,ohio-state,WRONG,5,-3
+arkansas,oklahoma,oklahoma,RIGHT,17,7

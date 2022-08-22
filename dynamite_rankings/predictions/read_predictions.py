@@ -31,10 +31,6 @@ from the_kick_is_bad import utils
 
 def read_predictions(year, week):
 
-    # Check if the week is 'bowl' week
-    num_weeks = the_kick_is_bad.read_number_of_weeks(year)
-    week, _ = utils.check_week(week, num_weeks)
-
     # Open predictions file with absolute path
     absolute_path = utils.get_abs_path(__file__)
     filename = f"{absolute_path}/{year}/predictions-{year}-{week:02}.csv"

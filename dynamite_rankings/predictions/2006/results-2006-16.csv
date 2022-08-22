@@ -1,0 +1,17 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+texas-am,california,texas-am,WRONG,0,-35
+navy,boston-college,navy,WRONG,5,-1
+virginia-tech,georgia,virginia-tech,WRONG,7,-7
+missouri,oregon-state,missouri,WRONG,2,-1
+houston,south-carolina,south-carolina,RIGHT,7,8
+houston,south-carolina,south-carolina,RIGHT,7,8
+nevada,miami-fl,miami-fl,RIGHT,0,1
+kansas-state,rutgers,rutgers,RIGHT,24,27
+ucla,florida-state,ucla,WRONG,8,-17
+ucla,florida-state,ucla,WRONG,8,-17
+iowa,texas,texas,RIGHT,26,2
+minnesota,texas-tech,texas-tech,RIGHT,3,3
+middle-tennessee-state,central-michigan,middle-tennessee-state,WRONG,1,-17
+alabama,oklahoma-state,oklahoma-state,RIGHT,11,3
+purdue,maryland,maryland,RIGHT,4,17
+clemson,kentucky,clemson,WRONG,28,-8

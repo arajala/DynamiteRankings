@@ -34,8 +34,11 @@ from models.read_model import read_model
 def calculate_model(year, week, stats, teams):
 
     if week < 9:
-        prev_stats = the_kick_is_bad.read_stats(year - 1, "bowl")
-        prev_model = read_model(year - 1, "bowl")
+        prev_teams = the_kick_is_bad.read_teams(year - 1)
+        prev_stats = the_kick_is_bad.read_stats_by_category(year - 1, prev_teams)
+        prev_games = the_kick_is_bad.read_games(year - 1)
+        prev_year_final_week = sorted(prev_games.keys())[-1]
+        prev_model = read_model(year - 1, prev_year_final_week)
     else:
         prev_stats = None
         prev_model = None
@@ -94,12 +97,18 @@ def calculate_games_played(week, stats, teams):
 
     i = 0
     for team in teams:
+        # Set minimum of 1 game to protect against div by 0
         if week == 0:
             games_played[i] = 1
-        elif week < 9:
-            games_played[i] = stats[team]["games played"]["season"] + 1
         else:
-            games_played[i] = stats[team]["games played"]["season"]
+            # Loop through pairs of week and games played results
+            for matchup_week, result_gp in zip(stats[team]["matchups"]["weeks"], stats[team]["results"]["games played"]):
+                # Count the games played up to the requested week
+                if matchup_week <= week:
+                    games_played[i] += result_gp
+            # Before week 9, count an extra game for 'last year'
+            if week < 9:
+                games_played[i] += 1
         i += 1
 
     return games_played
@@ -111,27 +120,29 @@ def calculate_points_margin(week, stats, prev_stats, games_played, teams):
 
     i = 0
     for team in teams:
+        # Use last year's stats for this year's preseason
         if week == 0:
             if team in prev_stats:
-                prev_points_margin = sum(prev_stats[team]["points"]["total"]["gained"]) - sum(prev_stats[team]["points"]["total"]["allowed"])
-                prev_games_played = prev_stats[team]["games played"]["season"]
+                prev_points_margin = sum(prev_stats[team]["results"]["points"]) - sum(prev_stats[team]["results"]["points allowed"])
+                prev_games_played = sum(prev_stats[team]["results"]["games played"])
                 prev_points_margin_per_game = prev_points_margin / max(1, prev_games_played)
                 points_margin[i] = prev_points_margin_per_game
-        elif week < 9:
-            points_margin[i] = sum(stats[team]["points"]["total"]["gained"]) - sum(stats[team]["points"]["total"]["allowed"])
-            if team in prev_stats:
-                prev_points_margin = sum(prev_stats[team]["points"]["total"]["gained"]) - sum(prev_stats[team]["points"]["total"]["allowed"])
-                prev_games_played = prev_stats[team]["games played"]["season"]
-                prev_points_margin_per_game = prev_points_margin / max(1, prev_games_played)
-                points_margin[i] += prev_points_margin_per_game
-            else:
-                points_margin_per_game = points_margin[i] / max(1, (games_played[i] - 1))
-                points_margin[i] += points_margin_per_game
         else:
-            points_margin[i] = sum(stats[team]["points"]["total"]["gained"]) - sum(stats[team]["points"]["total"]["allowed"])
+            points_margin[i] = sum(stats[team]["results"]["points"]) - sum(stats[team]["results"]["points allowed"])
+            # Before week 9, count an extra game for 'last year'
+            if week < 9:
+                # If the team existed last year, use the actual values from last year
+                if team in prev_stats:
+                    prev_points_margin = sum(prev_stats[team]["results"]["points"]) - sum(prev_stats[team]["results"]["points allowed"])
+                    prev_games_played = sum(prev_stats[team]["results"]["games played"])
+                    prev_points_margin_per_game = prev_points_margin / max(1, prev_games_played)
+                    points_margin[i] += prev_points_margin_per_game
+                # If this is a new team, fake the previous value with this year's average
+                else:
+                    points_margin_per_game = points_margin[i] / max(1, (games_played[i] - 1))
+                    points_margin[i] += points_margin_per_game
 
         points_margin[i] /= max(1, games_played[i])
-
         i += 1
 
     return points_margin
@@ -143,27 +154,31 @@ def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams)
 
     i = 0
     for team in teams:
+        # Use last year's stats for this year's preseason
         if week == 0:
             if team in prev_stats:
-                prev_rushing_yards_margin = sum(prev_stats[team]["rushing"]["yards"]["gained"]) - sum(prev_stats[team]["rushing"]["yards"]["allowed"])
-                prev_games_played = prev_stats[team]["games played"]["season"]
-                prev_rushing_yards_margin_per_game = prev_rushing_yards_margin / max(1, prev_games_played)
-                rushing_yards_margin[i] = prev_rushing_yards_margin_per_game
-        elif week < 9:
-            rushing_yards_margin[i] = sum(stats[team]["rushing"]["yards"]["gained"]) - sum(stats[team]["rushing"]["yards"]["allowed"])
-            if team in prev_stats:
-                prev_rushing_yards_margin = sum(prev_stats[team]["rushing"]["yards"]["gained"]) - sum(prev_stats[team]["rushing"]["yards"]["allowed"])
-                prev_games_played = prev_stats[team]["games played"]["season"]
+                prev_rushing_yards_margin = sum(prev_stats[team]["offense"]["rushing"]["yards"]) - sum(prev_stats[team]["defense"]["rushing"]["yards"])
+                prev_games_played = sum(prev_stats[team]["results"]["games played"])
                 prev_rushing_yards_margin_per_game = prev_rushing_yards_margin / max(1, prev_games_played)
                 rushing_yards_margin[i] = prev_rushing_yards_margin_per_game
             else:
-                rushing_yards_margin_per_game = rushing_yards_margin[i] / max(1, (games_played[i] - 1))
-                rushing_yards_margin[i] += rushing_yards_margin_per_game
+                print(f"Warning: didn't find {team} in last year's stats")
         else:
-            rushing_yards_margin[i] = sum(stats[team]["rushing"]["yards"]["gained"]) - sum(stats[team]["rushing"]["yards"]["allowed"])
+            rushing_yards_margin[i] = sum(stats[team]["offense"]["rushing"]["yards"]) - sum(stats[team]["defense"]["rushing"]["yards"])
+            # Before week 9, count an extra game for 'last year'
+            if week < 9:
+                # If the team existed last year, use the actual values from last year
+                if team in prev_stats:
+                    prev_rushing_yards_margin = sum(prev_stats[team]["offense"]["rushing"]["yards"]) - sum(prev_stats[team]["defense"]["rushing"]["yards"])
+                    prev_games_played = sum(prev_stats[team]["results"]["games played"])
+                    prev_rushing_yards_margin_per_game = prev_rushing_yards_margin / max(1, prev_games_played)
+                    rushing_yards_margin[i] += prev_rushing_yards_margin_per_game
+                # If this is a new team, fake the previous value with this year's average
+                else:
+                    rushing_yards_margin_per_game = rushing_yards_margin[i] / max(1, (games_played[i] - 1))
+                    rushing_yards_margin[i] += rushing_yards_margin_per_game
 
         rushing_yards_margin[i] /= max(1, games_played[i])
-
         i += 1
 
     return rushing_yards_margin
@@ -175,32 +190,33 @@ def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_
 
     i = 0
     for team in teams:
+        # Use last year's stats for this year's preseason
         if week == 0:
-            if team in prev_model:
+            if team in prev_stats:
                 prev_home_field_correction = prev_model[team]["home field correction"]
-                prev_games_played = prev_stats[team]["games played"]["season"]
+                prev_games_played = sum(prev_stats[team]["results"]["games played"])
                 prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
                 home_field_corrections[i] += prev_home_field_correction_per_game
-        elif week < 9:
-            for is_home in stats[team]["schedule"]["home"]:
-                if is_home:
-                    home_field_corrections[i] -= 1
-                else:
-                    home_field_corrections[i] += 1
-            if team in prev_model:
-                prev_home_field_correction = prev_model[team]["home field correction"]
-                prev_games_played = prev_stats[team]["games played"]["season"]
-                prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
-                home_field_corrections[i] += prev_home_field_correction_per_game
+            else:
+                print(f"Warning: didn't find {team} in last year's stats")
         else:
-            for is_home in stats[team]["schedule"]["home"]:
+            for is_home, neutral_site in zip(stats[team]["matchups"]["home"], stats[team]["matchups"]["neutral site"]):
                 if is_home:
                     home_field_corrections[i] -= 1
-                else:
+                elif not neutral_site:
                     home_field_corrections[i] += 1
+            # Before week 9, count an extra game for 'last year'
+            if week < 9:
+                # If the team existed last year, use the actual values from last year
+                if team in prev_model and team in prev_stats:
+                    prev_home_field_correction = prev_model[team]["home field correction"]
+                    prev_games_played = sum(prev_stats[team]["results"]["games played"])
+                    prev_home_field_correction_per_game = prev_home_field_correction / max(1, prev_games_played)
+                    home_field_corrections[i] += prev_home_field_correction_per_game
+                else:
+                    print(f"Warning: didn't find {team} in last year's model or stats")
 
         home_field_corrections[i] /= max(1, games_played[i])
-
         i += 1
 
     return home_field_corrections
@@ -219,7 +235,7 @@ def calculate_games_played_normalization(week, stats, games_played, teams):
     if week > 0:
         i = 0
         for team in teams:
-            for opponent in stats[team]["schedule"]["opponents"]:
+            for opponent in stats[team]["matchups"]["opponents"]:
                 j = team_to_index[opponent]
                 games_played_normalization[i][j] = 1 / max(1, games_played[i])
             i += 1
@@ -242,11 +258,16 @@ def calculate_strengths(week, points_margin, rushing_yards_margin, home_field_co
             if team in prev_model:
                 B[i] += prev_model[team]["average opponent strength"] / max(1, games_played[i])
             else:
+                print(f"Warning: didn't find {team} in last year's model")
                 pass
             i += 1
 
     A = I - games_played_normalization
-    strengths = np.linalg.solve(A, B)
+    try:
+        strengths = np.linalg.solve(A, B)
+    except:
+        print(f"Warning: Singular matrix cannot be solved in week {week}, using least squares")
+        strengths = np.linalg.lstsq(A, B, rcond=-1)[0]
 
     return strengths
 

@@ -1,0 +1,7 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+stanford,oklahoma-state,stanford,WRONG,2,-3
+wisconsin,oregon,oregon,RIGHT,7,7
+nebraska,south-carolina,nebraska,WRONG,0,-17
+penn-state,houston,houston,RIGHT,4,16
+georgia,michigan-state,georgia,WRONG,5,-3
+ohio-state,florida,ohio-state,WRONG,6,-7

@@ -1,0 +1,15 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+pittsburgh,navy,navy,RIGHT,13,16
+bowling-green-state,georgia-southern,bowling-green-state,WRONG,1,-31
+temple,toledo,toledo,RIGHT,6,15
+ucla,nebraska,nebraska,RIGHT,1,8
+northern-illinois,boise-state,boise-state,RIGHT,12,48
+cincinnati,san-diego-state,san-diego-state,RIGHT,12,35
+southern-mississippi,washington,washington,RIGHT,14,13
+indiana,duke,duke,RIGHT,9,3
+utah-state,akron,utah-state,WRONG,4,-2
+miami-fl,washington-state,miami-fl,WRONG,7,-6
+middle-tennessee-state,western-michigan,western-michigan,RIGHT,8,14
+connecticut,marshall,marshall,RIGHT,2,6
+central-michigan,minnesota,minnesota,RIGHT,6,7
+tulsa,virginia-tech,virginia-tech,RIGHT,20,3

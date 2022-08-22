@@ -1,0 +1,15 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+missouri,auburn,auburn,RIGHT,3,17
+stanford,arizona-state,arizona-state,WRONG,4,-24
+ohio-state,michigan-state,ohio-state,WRONG,22,-10
+duke,florida-state,florida-state,RIGHT,34,38
+oklahoma,oklahoma-state,oklahoma-state,WRONG,11,-9
+northern-illinois,bowling-green-state,northern-illinois,WRONG,3,-20
+louisville,cincinnati,louisville,RIGHT,5,7
+texas,baylor,baylor,RIGHT,34,20
+utah-state,fresno-state,utah-state,WRONG,14,-7
+marshall,rice,marshall,WRONG,3,-17
+louisiana-lafayette,south-alabama,louisiana-lafayette,WRONG,4,-22
+central-florida,southern-methodist,central-florida,RIGHT,23,4
+south-florida,rutgers,rutgers,RIGHT,12,25
+memphis,connecticut,memphis,WRONG,15,-35

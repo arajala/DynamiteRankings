@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+san-diego-state,army,army,RIGHT,5,7
+texas-tech,south-florida,south-florida,RIGHT,6,4
+houston,fresno-state,fresno-state,RIGHT,3,6
+toledo,appalachian-state,toledo,WRONG,10,-34
+central-michigan,wyoming,central-michigan,WRONG,2,-23
+southern-methodist,louisiana-tech,southern-methodist,WRONG,12,-41
+florida-international,temple,temple,RIGHT,8,25
+alabama-birmingham,ohio,ohio,RIGHT,26,35
+akron,florida-atlantic,florida-atlantic,RIGHT,34,47

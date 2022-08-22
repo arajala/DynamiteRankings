@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+georgia,boston-college,boston-college,RIGHT,4,4
+stanford,georgia-tech,stanford,WRONG,12,-10
+southern-california,utah,utah,RIGHT,9,4
+kansas-state,syracuse,kansas-state,WRONG,22,-23
+washington,texas,texas,RIGHT,28,4
+iowa-state,alabama,alabama,RIGHT,9,1
+texas-tech,iowa,iowa,RIGHT,12,3
+texas-christian,texas-am,texas-am,RIGHT,8,19
+cincinnati,toledo,toledo,RIGHT,19,7

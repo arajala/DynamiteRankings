@@ -1,0 +1,17 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+georgia,alabama,alabama,RIGHT,6,7
+fresno-state,boise-state,boise-state,WRONG,3,-3
+texas,oklahoma,oklahoma,RIGHT,18,12
+memphis,central-florida,central-florida,RIGHT,11,15
+utah,washington,utah,WRONG,4,-7
+pittsburgh,clemson,clemson,RIGHT,35,32
+northwestern,ohio-state,ohio-state,RIGHT,18,21
+buffalo,northern-illinois,northern-illinois,RIGHT,0,1
+alabama-birmingham,middle-tennessee-state,alabama-birmingham,RIGHT,5,2
+stanford,california,california,WRONG,0,-10
+marshall,virginia-tech,virginia-tech,RIGHT,0,21
+louisiana-lafayette,appalachian-state,appalachian-state,RIGHT,32,11
+east-carolina,north-carolina-state,north-carolina-state,RIGHT,31,55
+akron,south-carolina,south-carolina,RIGHT,41,25
+fcs,liberty,liberty,RIGHT,18,35
+fcs,iowa-state,iowa-state,RIGHT,54,3

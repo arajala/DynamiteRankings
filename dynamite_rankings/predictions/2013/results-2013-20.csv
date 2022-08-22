@@ -1,0 +1,17 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+auburn,florida-state,florida-state,RIGHT,8,3
+ohio-state,clemson,ohio-state,WRONG,13,-5
+stanford,michigan-state,stanford,WRONG,12,-4
+oklahoma-state,missouri,missouri,RIGHT,7,10
+wisconsin,south-carolina,wisconsin,WRONG,10,-10
+alabama,oklahoma,alabama,WRONG,21,-14
+baylor,central-florida,baylor,WRONG,32,-10
+virginia-tech,ucla,ucla,RIGHT,9,30
+iowa,louisiana-state,louisiana-state,RIGHT,10,7
+duke,texas-am,texas-am,RIGHT,5,4
+houston,vanderbilt,houston,WRONG,6,-17
+georgia,nebraska,georgia,WRONG,18,-5
+boston-college,arizona,arizona,RIGHT,14,23
+rice,mississippi-state,mississippi-state,RIGHT,13,37
+ball-state,arkansas-state,arkansas-state,RIGHT,5,3
+nevada-las-vegas,north-texas,north-texas,RIGHT,15,22

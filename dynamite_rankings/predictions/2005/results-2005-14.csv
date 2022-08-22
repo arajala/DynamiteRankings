@@ -1,0 +1,13 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+west-virginia,south-florida,west-virginia,RIGHT,4,15
+louisiana-state,georgia,louisiana-state,WRONG,2,-20
+colorado,texas,texas,RIGHT,37,67
+ucla,southern-california,southern-california,RIGHT,43,47
+virginia-tech,florida-state,virginia-tech,WRONG,28,-5
+louisville,connecticut,louisville,RIGHT,15,10
+tulsa,central-florida,tulsa,RIGHT,4,17
+army,navy,navy,RIGHT,11,19
+northern-illinois,akron,northern-illinois,WRONG,20,-1
+louisiana-tech,fresno-state,fresno-state,WRONG,30,-12
+san-diego-state,hawaii,san-diego-state,WRONG,18,-11
+middle-tennessee-state,florida-international,middle-tennessee-state,WRONG,8,-4

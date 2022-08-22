@@ -1,0 +1,16 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+notre-dame,florida-state,notre-dame,WRONG,5,-4
+tulsa,brigham-young,tulsa,WRONG,5,-3
+vanderbilt,cincinnati,cincinnati,RIGHT,4,7
+air-force,toledo,toledo,RIGHT,7,1
+georgia-tech,utah,georgia-tech,WRONG,7,-3
+california,texas,texas,RIGHT,12,11
+washington,baylor,baylor,RIGHT,15,11
+iowa-state,rutgers,rutgers,RIGHT,1,14
+iowa,oklahoma,oklahoma,RIGHT,28,17
+virginia,auburn,virginia,WRONG,2,-19
+louisville,north-carolina-state,louisville,WRONG,5,-7
+ucla,illinois,illinois,RIGHT,5,6
+western-michigan,purdue,purdue,RIGHT,4,5
+northwestern,texas-am,texas-am,RIGHT,27,11
+wake-forest,mississippi-state,mississippi-state,RIGHT,12,6

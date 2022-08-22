@@ -1,0 +1,13 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+nebraska,southern-california,southern-california,RIGHT,0,3
+northern-illinois,marshall,marshall,RIGHT,19,29
+duke,arizona-state,arizona-state,RIGHT,6,5
+central-florida,north-carolina-state,north-carolina-state,RIGHT,6,7
+cincinnati,virginia-tech,virginia-tech,RIGHT,6,16
+miami-fl,south-carolina,miami-fl,WRONG,10,-3
+boston-college,penn-state,boston-college,WRONG,15,-1
+north-carolina,rutgers,rutgers,RIGHT,1,19
+san-diego-state,navy,navy,RIGHT,16,1
+central-michigan,western-kentucky,western-kentucky,RIGHT,4,1
+fresno-state,rice,rice,RIGHT,8,24
+illinois,louisiana-tech,louisiana-tech,RIGHT,28,17

@@ -1,0 +1,6 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+brigham-young,louisville,brigham-young,WRONG,9,-18
+fresno-state,michigan-state,fresno-state,WRONG,10,-9
+purdue,washington-state,washington-state,RIGHT,9,6
+auburn,north-carolina,north-carolina,RIGHT,8,6
+louisiana-tech,clemson,clemson,RIGHT,11,25

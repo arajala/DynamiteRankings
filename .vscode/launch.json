@@ -16,7 +16,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\rank.py",
-            "args": ["2021", "15"],
+            "args": ["2022", "0"],
             "console": "integratedTerminal"
         },
         {
@@ -24,7 +24,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\predict.py",
-            "args": ["2021", "bowl"],
+            "args": ["2022", "1"],
             "console": "integratedTerminal"
         },
         {
@@ -33,6 +33,14 @@
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\evaluate.py",
             "args": ["2021", "15"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "DynamiteRankings: Evaluate Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\dynamite_rankings\\models\\evaluate_model.py",
+            "args": [],
             "console": "integratedTerminal"
         },
         {

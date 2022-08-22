@@ -1,0 +1,10 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+southern-methodist,florida-atlantic,southern-methodist,WRONG,6,-24
+boise-state,washington,boise-state,WRONG,2,-31
+central-michigan,san-diego-state,central-michigan,WRONG,0,-37
+marshall,central-florida,central-florida,RIGHT,24,23
+alabama-birmingham,appalachian-state,appalachian-state,RIGHT,30,14
+georgia-southern,liberty,georgia-southern,WRONG,18,-7
+charlotte,buffalo,buffalo,RIGHT,19,22
+florida-international,arkansas-state,arkansas-state,RIGHT,2,8
+utah-state,kent-state,utah-state,WRONG,10,-10

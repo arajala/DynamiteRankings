@@ -1,0 +1,13 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+ohio-state,clemson,ohio-state,WRONG,14,-6
+oklahoma,louisiana-state,louisiana-state,RIGHT,9,35
+memphis,penn-state,penn-state,RIGHT,14,14
+iowa-state,notre-dame,notre-dame,RIGHT,12,24
+oklahoma-state,texas-am,texas-am,RIGHT,1,3
+southern-california,iowa,iowa,RIGHT,10,25
+washington-state,air-force,air-force,RIGHT,26,10
+wake-forest,michigan-state,michigan-state,RIGHT,9,6
+temple,north-carolina,north-carolina,RIGHT,10,42
+brigham-young,hawaii,brigham-young,WRONG,4,-4
+miami-fl,louisiana-tech,miami-fl,WRONG,15,-14
+eastern-michigan,pittsburgh,pittsburgh,RIGHT,20,4

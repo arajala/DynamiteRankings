@@ -1,0 +1,11 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+brigham-young,washington,washington,RIGHT,1,15
+miami-fl,louisville,miami-fl,WRONG,1,-27
+northern-illinois,utah-state,utah-state,RIGHT,10,7
+michigan,kansas-state,michigan,WRONG,1,-17
+bowling-green-state,pittsburgh,bowling-green-state,WRONG,2,-3
+minnesota,syracuse,syracuse,RIGHT,0,4
+cincinnati,north-carolina,north-carolina,RIGHT,6,22
+maryland,marshall,marshall,RIGHT,7,11
+boise-state,oregon-state,boise-state,WRONG,13,-15
+rutgers,notre-dame,notre-dame,RIGHT,21,13

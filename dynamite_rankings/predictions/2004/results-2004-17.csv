@@ -1,0 +1,8 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+virginia,fresno-state,virginia,WRONG,10,-3
+memphis,bowling-green-state,bowling-green-state,RIGHT,4,17
+toledo,connecticut,connecticut,RIGHT,2,29
+syracuse,georgia-tech,georgia-tech,RIGHT,10,37
+marshall,cincinnati,cincinnati,RIGHT,8,18
+ucla,wyoming,ucla,WRONG,18,-3
+alabama-birmingham,hawaii,alabama-birmingham,WRONG,18,-19

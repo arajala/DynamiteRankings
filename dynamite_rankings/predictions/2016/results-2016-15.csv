@@ -1,0 +1,17 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+colorado,washington,washington,RIGHT,4,31
+wisconsin,penn-state,wisconsin,WRONG,6,-7
+virginia-tech,clemson,clemson,RIGHT,16,7
+florida,alabama,alabama,RIGHT,38,38
+temple,navy,navy,WRONG,14,-24
+oklahoma-state,oklahoma,oklahoma,RIGHT,21,18
+san-diego-state,wyoming,san-diego-state,RIGHT,8,3
+kansas-state,texas-christian,kansas-state,RIGHT,5,24
+louisiana-tech,western-kentucky,western-kentucky,RIGHT,17,14
+ohio,western-michigan,western-michigan,RIGHT,27,6
+baylor,west-virginia,west-virginia,RIGHT,13,3
+troy,georgia-southern,troy,WRONG,5,-4
+georgia-state,idaho,idaho,RIGHT,13,25
+louisiana-lafayette,louisiana-monroe,louisiana-lafayette,RIGHT,11,27
+new-mexico-state,south-alabama,south-alabama,RIGHT,15,7
+arkansas-state,texas-state,arkansas-state,RIGHT,32,22

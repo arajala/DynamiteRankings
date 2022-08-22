@@ -1,0 +1,16 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+clemson,ohio-state,clemson,WRONG,0,-21
+notre-dame,alabama,alabama,RIGHT,12,17
+cincinnati,georgia,cincinnati,WRONG,8,-3
+north-carolina,texas-am,north-carolina,WRONG,6,-14
+san-jose-state,ball-state,san-jose-state,WRONG,17,-21
+miami-fl,oklahoma-state,oklahoma-state,RIGHT,2,3
+colorado,texas,colorado,WRONG,16,-32
+oregon,iowa-state,oregon,WRONG,19,-17
+florida,oklahoma,oklahoma,RIGHT,15,35
+army,west-virginia,army,WRONG,16,-3
+auburn,northwestern,northwestern,RIGHT,4,16
+wake-forest,wisconsin,wisconsin,RIGHT,5,14
+indiana,mississippi,indiana,WRONG,10,-6
+north-carolina-state,kentucky,north-carolina-state,WRONG,5,-2
+tulsa,mississippi-state,tulsa,WRONG,29,-2

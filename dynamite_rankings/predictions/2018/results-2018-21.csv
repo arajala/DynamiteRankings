@@ -1,0 +1,7 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+alabama,clemson,clemson,RIGHT,2,28
+central-florida,louisiana-state,louisiana-state,RIGHT,8,8
+penn-state,kentucky,penn-state,WRONG,3,-3
+washington,ohio-state,ohio-state,RIGHT,10,5
+mississippi-state,iowa,mississippi-state,WRONG,15,-5
+georgia,texas,georgia,WRONG,31,-7

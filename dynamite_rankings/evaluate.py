@@ -33,7 +33,9 @@ def evaluate(year, week):
 
     predictions = read_predictions(year, week)
 
-    scores = the_kick_is_bad.read_scores(year, week)
+    games = the_kick_is_bad.read_games(year)
+
+    teams = the_kick_is_bad.read_teams(year)
 
     # Loop through predictions to check results
     results = []
@@ -44,34 +46,37 @@ def evaluate(year, week):
         predicted_margin_of_victory = prediction["predicted margin of victory"]
 
         # Loop through all scores to find the matching (completed) game
-        for game in scores["games"]:
-            if game["game"]["gameState"] != "final":
-                continue
-            
-            # Check if this is the same game by comparing team names
-            if game["game"]["away"]["names"]["standard"] == away_team and game["game"]["home"]["names"]["standard"] == home_team:
-                away_score = int(game["game"]["away"]["score"])
-                home_score = int(game["game"]["home"]["score"])
-
-                # Get the actual results
-                if away_score > home_score:
-                    actual_winner = away_team
-                elif home_score > away_score:
-                    actual_winner = home_team
-                else:
-                    actual_winner = "TIE"
-                actual_margin_of_victory = abs(away_score - home_score)
+        for weekly_games in games.values():
+            for game in weekly_games:
+                if game["week"] != week:
+                    continue
+                elif game["away points"] == 0 and game["home points"] == 0:
+                    continue
                 
-                # Save the results data
-                results.append({
-                    "away team": away_team,
-                    "home team": home_team,
-                    "predicted winner": predicted_winner,
-                    "actual winner": actual_winner,
-                    "predicted margin of victory": predicted_margin_of_victory,
-                    "actual margin of victory": actual_margin_of_victory
-                })
-                break
+                # Check if this is the same game by comparing team names
+                if game["away uniqname"] == away_team and game["home uniqname"] == home_team:
+                    away_score = game["away points"]
+                    home_score = game["home points"]
+
+                    # Get the actual results
+                    if away_score > home_score:
+                        actual_winner = away_team
+                    elif home_score > away_score:
+                        actual_winner = home_team
+                    else:
+                        actual_winner = "TIE"
+                    actual_margin_of_victory = abs(away_score - home_score)
+                    
+                    # Save the results data
+                    results.append({
+                        "away team": away_team,
+                        "home team": home_team,
+                        "predicted winner": predicted_winner,
+                        "actual winner": actual_winner,
+                        "predicted margin of victory": predicted_margin_of_victory,
+                        "actual margin of victory": actual_margin_of_victory
+                    })
+                    break
 
     # Print results
     num_results = len(results)
@@ -88,23 +93,23 @@ def evaluate(year, week):
             result["actual margin of victory"] *= -1
 
         # Print to file string in csv format
-        results_file_string += "{0},{1},{2},{3},{4:.1f},{5}\n".format(result["away team"],
-                                                                      result["home team"],
-                                                                      result["predicted winner"],
-                                                                      result_string,
-                                                                      result["predicted margin of victory"],
-                                                                      result["actual margin of victory"])
+        results_file_string += "{0},{1},{2},{3},{4},{5}\n".format(result["away team"],
+                                                                  result["home team"],
+                                                                  result["predicted winner"],
+                                                                  result_string,
+                                                                  round(result["predicted margin of victory"]),
+                                                                  result["actual margin of victory"])
 
         # Print to console strin in pretty format
         if result["predicted winner"] == result["home team"]:
             predicted_loser = result["away team"]
         else:
             predicted_loser = result["home team"]
-        results_console_string = "{0}: Predicted {1} over {2} by {3:.1f} (actual: {4})".format(result_string,
-                                                                                               result["predicted winner"],
-                                                                                               predicted_loser,
-                                                                                               result["predicted margin of victory"],
-                                                                                               result["actual margin of victory"])
+        results_console_string = "{0}: Predicted {1} over {2} by {3} (actual: {4})".format(result_string,
+                                                                                           teams[result["predicted winner"]]["name"],
+                                                                                           teams[predicted_loser]["name"],
+                                                                                           round(result["predicted margin of victory"]),
+                                                                                           result["actual margin of victory"])
         print(results_console_string)
 
     # Print statistics to console

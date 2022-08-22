@@ -1,0 +1,16 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+north-carolina,clemson,clemson,RIGHT,11,8
+iowa,michigan-state,michigan-state,RIGHT,4,3
+southern-california,stanford,stanford,RIGHT,2,19
+florida,alabama,alabama,RIGHT,22,14
+temple,houston,houston,RIGHT,16,11
+air-force,san-diego-state,air-force,WRONG,4,-3
+northern-illinois,bowling-green-state,bowling-green-state,RIGHT,8,20
+southern-mississippi,western-kentucky,western-kentucky,RIGHT,8,17
+west-virginia,kansas-state,west-virginia,WRONG,16,-1
+texas,baylor,baylor,WRONG,32,-6
+troy,louisiana-lafayette,louisiana-lafayette,WRONG,2,-24
+appalachian-state,south-alabama,appalachian-state,RIGHT,38,7
+new-mexico-state,louisiana-monroe,louisiana-monroe,RIGHT,3,7
+texas-state,arkansas-state,arkansas-state,RIGHT,34,38
+georgia-state,georgia-southern,georgia-southern,WRONG,54,-27

@@ -1,0 +1,17 @@
+AwayTeam,HomeTeam,PredictedWinner,Result,PredictedMoV,ActualMoV
+alabama,florida,florida,RIGHT,18,11
+missouri,oklahoma,oklahoma,RIGHT,14,41
+boston-college,virginia-tech,boston-college,WRONG,5,-18
+pittsburgh,connecticut,connecticut,WRONG,6,-24
+south-florida,west-virginia,west-virginia,RIGHT,8,6
+ball-state,buffalo,ball-state,WRONG,18,-18
+east-carolina,tulsa,tulsa,WRONG,20,-3
+arkansas-state,troy,troy,RIGHT,10,26
+cincinnati,hawaii,cincinnati,RIGHT,19,5
+louisville,rutgers,rutgers,RIGHT,10,49
+arizona-state,arizona,arizona,RIGHT,22,21
+army,navy,navy,RIGHT,21,34
+southern-california,ucla,southern-california,RIGHT,56,21
+middle-tennessee-state,louisiana-lafayette,louisiana-lafayette,RIGHT,15,14
+washington,california,california,RIGHT,48,41
+fcs,florida-international,florida-international,RIGHT,21,24
