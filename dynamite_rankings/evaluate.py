@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,23 +14,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(join(root, "TheKickIsBAD"))
 
-# Standard imports
-import the_kick_is_bad
-from the_kick_is_bad import utils
+###############################################################################
 
 # DynamiteRankings imports
 from predictions.read_predictions import read_predictions
 
+# TheKickIsBAD imports
+import the_kick_is_bad
+from the_kick_is_bad import utils
+
+# Standard imports
+import argparse
+
+###############################################################################
 
 def evaluate(year, week):
-
+    """ Evaluates the DynamiteRankings predictions for the given {year}, {week} and
+        saves them to the predictions/{year} directory. """
     predictions = read_predictions(year, week)
 
     games = the_kick_is_bad.read_games(year)
@@ -121,10 +130,9 @@ def evaluate(year, week):
     filename = f"{absolute_path}/predictions/{year}/results-{year}-{week:02}.csv"
     utils.write_string(results_file_string, filename)
 
-
 if __name__ == "__main__":
-    year = int(sys.argv[1])
-    week = sys.argv[2]
-    if week != "bowl":
-        week = int(week)
-    evaluate(year, week)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("week", type=int)
+    args = parser.parse_args()
+    evaluate(args.year, args.week)

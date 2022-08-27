@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,23 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(root)
 sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-# Standard imports
-import json
-import sys
-import the_kick_is_bad
+###############################################################################
+
+# TheKickIsBAD imports
 from the_kick_is_bad import utils
 
+# Standard imports
+import argparse
+import json
+import sys
+
+###############################################################################
 
 def read_rankings(year, week):
-
+    """ Reads the DynamiteRankings rankings from {year}, {week} into a dict. """
     # Open rankings file with absolute path
     absolute_path = utils.get_abs_path(__file__)
     filename = f"{absolute_path}/{year}/team_rankings-{year}-{week:02}.csv"
@@ -69,12 +76,11 @@ def read_rankings(year, week):
 
         return rankings
 
-
 if __name__ == "__main__":
-    year = int(sys.argv[1])
-    week = sys.argv[2]
-    if week != "bowl":
-        week = int(week)
-    rankings = read_rankings(year, week)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("week", type=int)
+    args = parser.parse_args()
+    rankings = read_rankings(args.year, args.week)
     rankings_string = json.dumps(rankings, indent=2)
     print(rankings_string)

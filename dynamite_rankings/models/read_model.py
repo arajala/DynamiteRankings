@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,21 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(root)
 sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-import json
-import sys
+###############################################################################
+
+# TheKickIsBAD imports
 from the_kick_is_bad import utils
 
+# Standard imports
+import argparse
+import json
+import sys
+
+###############################################################################
 
 def read_model(year, week):
-
+    """ Reads the DynamiteRankings predictions from {year}, {week} into a dict. """
     # Open model file with absolute path
     absolute_path = utils.get_abs_path(__file__)
     filename = f"{absolute_path}/{year}/model-{year}-{week:02}.csv"
@@ -69,12 +78,11 @@ def read_model(year, week):
 
         return model
 
-
 if __name__ == "__main__":
-    year = int(sys.argv[1])
-    week = sys.argv[2]
-    if week != "bowl":
-        week = int(week)
-    model = read_model(year, week)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("week", type=int)
+    args = parser.parse_args()
+    model = read_model(args.year, args.week)
     model_string = json.dumps(model, indent=2)
     print(model_string)

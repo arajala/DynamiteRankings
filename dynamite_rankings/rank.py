@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,26 +14,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(join(root, "TheKickIsBAD"))
 
-# Standard imports
-import numpy as np
-import statistics
-import the_kick_is_bad
-from the_kick_is_bad import utils
+###############################################################################
 
 # DynamiteRankings imports
 from models.calculate_model import calculate_model
 from rankings.read_rankings import read_rankings
 
+# TheKickIsBAD imports
+import the_kick_is_bad
+from the_kick_is_bad import utils
+
+# Standard imports
+import argparse
+import numpy as np
+import statistics
+
+###############################################################################
 
 def rank(year, week):
-
+    """ Ranks all teams, conferences, and divisions for the given {year}, {week}. """
     teams = the_kick_is_bad.read_teams(year)
 
     if week == 0:
@@ -50,7 +58,7 @@ def rank(year, week):
     calculate_division_rankings(year, week, teams, team_rankings)
 
 def calculate_team_rankings(year, week, stats, teams):
-    
+    """ Calculates team rankings, prints them to console, and saves them to rankings/{year} directory. """
     _, strengths, standard_deviations = calculate_model(year, week, stats, teams)
 
     normalized_strengths = strengths - min(strengths)
@@ -130,7 +138,7 @@ def calculate_team_rankings(year, week, stats, teams):
     return rankings
 
 def calculate_conference_rankings(year, week, teams, team_rankings):
-
+    """ Calculates conference rankings, prints them to console, and saves them to rankings/{year} directory. """
     # Make lists of all the team scores in each conference
     conference_rankings = {}
     for team in teams:
@@ -171,7 +179,7 @@ def calculate_conference_rankings(year, week, teams, team_rankings):
     utils.write_string(conference_rankings_file_string, filename)
 
 def calculate_division_rankings(year, week, teams, team_rankings):
-
+    """ Calculates division rankings, prints them to console, and saves them to rankings/{year} directory. """
     # Make lists of all the team scores in each division
     division_rankings = {}
     for team in teams:
@@ -238,8 +246,9 @@ def get_games_played_array(stats, teams):
 
     return games_played
 
-
 if __name__ == "__main__":
-    year = int(sys.argv[1])
-    week = int(sys.argv[2])
-    rank(year, week)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("week", type=int)
+    args = parser.parse_args()
+    rank(args.year, args.week)

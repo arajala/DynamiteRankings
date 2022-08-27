@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,24 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(root)
 sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-# Standard imports
-import the_kick_is_bad
-from the_kick_is_bad import utils
+###############################################################################
 
 # DynamiteRankings imports
 from rankings.read_rankings import read_rankings
 
+# TheKickIsBAD imports
+import the_kick_is_bad
+from the_kick_is_bad import utils
+
+###############################################################################
 
 def evaluate_model():
-
+    """ Evaluates the DynamiteRankings model over many years and weeks, and
+        saves the results to models/model_evaluation.json. """
     results = {}
 
     start_year = 2013

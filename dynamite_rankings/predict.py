@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,28 +14,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(join(root, "TheKickIsBAD"))
 
-# Standard imports
-import the_kick_is_bad
-from the_kick_is_bad import utils
+###############################################################################
 
 # DynamiteRankings imports
 from rankings.read_rankings import read_rankings
 
+# TheKickIsBAD imports
+import the_kick_is_bad
+from the_kick_is_bad import utils
 
-def predict(year, week):
+# Standard imports
+import argparse
 
+###############################################################################
+
+def predict(year, week, source_week):
+    """ Predicts all the game results from the given {year}, {week} in TheKickIsBAD files.
+        Can predict future weeks using {source_week} to define when to pull the stats and
+        prediction model from. """
     games = the_kick_is_bad.read_games(year)
 
     teams = the_kick_is_bad.read_teams(year)
 
-    rankings = read_rankings(year, week - 1)
+    rankings = read_rankings(year, source_week)
 
     # Loop through games to make predictions
     predictions = []
@@ -110,10 +120,13 @@ def predict(year, week):
     filename = f"{absolute_path}/predictions/{year}/predictions-{year}-{week:02}.csv"
     utils.write_string(predictions_file_string, filename)
 
-
 if __name__ == "__main__":
-    year = int(sys.argv[1])
-    week = sys.argv[2]
-    if week != "bowl":
-        week = int(week)
-    predict(year, week)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("week", type=int)
+    parser.add_argument("-sw", "--source_week", type=int, default=-1, required=False)
+    args = parser.parse_args()
+    if args.source_week >= 0:
+        predict(args.year, args.week, args.source_week)
+    else:
+        predict(args.year, args.week, args.week - 1)

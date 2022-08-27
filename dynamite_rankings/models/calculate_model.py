@@ -1,5 +1,5 @@
 # DynamiteRankings: An open-source NCAA football ranking and prediction program.
-# Copyright (C) 2019  Bryan VanDuinen and Arthur Rajala
+# Copyright (C) 2019-2022 Bryan VanDuinen and Arthur Rajala
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,25 +14,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+###############################################################################
+
 # Add the root package directory to path for importing
-# This is so user does not need to run setup.py or modify PYTHONPATH
+# This is to ease UX as user does not need to run setup.py or modify PYTHONPATH
 from os.path import dirname, join, realpath
 import sys
 root = dirname(dirname(realpath(__file__)))
 sys.path.append(root)
 sys.path.append(join(dirname(root), "TheKickIsBAD"))
 
-# Standard imports
-import numpy as np
-import the_kick_is_bad
-from the_kick_is_bad import utils
+###############################################################################
 
 # DynamiteRankings imports
 from models.read_model import read_model
 
+# TheKickIsBAD imports
+import the_kick_is_bad
+from the_kick_is_bad import utils
+
+# Standard imports
+import numpy as np
+
+###############################################################################
 
 def calculate_model(year, week, stats, teams):
-
+    """ Calculates the model for a given year and week, and saves it to the models/{year} directory. """
     if week < 9:
         prev_teams = the_kick_is_bad.read_teams(year - 1)
         prev_stats = the_kick_is_bad.read_stats_by_category(year - 1, prev_teams)
@@ -91,7 +98,9 @@ def calculate_model(year, week, stats, teams):
     return model, strengths, standard_deviations
 
 def calculate_games_played(week, stats, teams):
-
+    """ Calculates a team-wise array of games played through the current week.
+        Sets a minimum value of 1 to avoid future divide by 0 concerns.
+        Before week 9, counts last season as an extra game. """
     num_teams = len(teams)
     games_played = np.zeros(num_teams)
 
@@ -114,7 +123,9 @@ def calculate_games_played(week, stats, teams):
     return games_played
 
 def calculate_points_margin(week, stats, prev_stats, games_played, teams):
-
+    """ Calculates a team-wise array of point margins per game.
+        For the preseason ranking, only uses the average of last season.
+        Before week 9, uses last season's average as an extra game. """
     num_teams = len(teams)
     points_margin = np.zeros(num_teams)
 
@@ -148,7 +159,9 @@ def calculate_points_margin(week, stats, prev_stats, games_played, teams):
     return points_margin
 
 def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams):
-
+    """ Calculates a team-wise array of rushing yard margins per game.
+        For the preseason ranking, only uses the average of last season.
+        Before week 9, uses last season's average as an extra game. """
     num_teams = len(teams)
     rushing_yards_margin = np.zeros(num_teams)
 
@@ -184,7 +197,9 @@ def calculate_rushing_yards_margin(week, stats, prev_stats, games_played, teams)
     return rushing_yards_margin
 
 def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_played, teams):
-
+    """ Calculates a team-wise array of home field correction factors.
+        For the preseason ranking, only uses the average of last season.
+        Before week 9, uses last season's average as an extra game. """
     num_teams = len(teams)
     home_field_corrections = np.zeros(num_teams)
 
@@ -222,7 +237,7 @@ def calculate_home_field_corrections(week, stats, prev_stats, prev_model, games_
     return home_field_corrections
 
 def calculate_games_played_normalization(week, stats, games_played, teams):
-
+    """ Calculates a team by team matrix of normalization factors based on games played. """
     num_teams = len(teams)
     games_played_normalization = np.zeros((num_teams, num_teams))
 
@@ -243,7 +258,7 @@ def calculate_games_played_normalization(week, stats, games_played, teams):
     return games_played_normalization
 
 def calculate_strengths(week, points_margin, rushing_yards_margin, home_field_corrections, games_played, games_played_normalization, prev_model, teams):
-
+    """ Calculates a team-wise array of team strengths based on the DynamiteRankings special sauce. """
     num_teams = len(teams)
 
     rush_yard_coefficient = 0.0837058862488956
@@ -272,7 +287,8 @@ def calculate_strengths(week, points_margin, rushing_yards_margin, home_field_co
     return strengths
 
 def calculate_standard_deviations(year, week, prev_model, teams):
-
+    """ Calculates a team-wise array of the standard deviations of team strengths.
+        For the preseason ranking, returns zeros. """
     num_teams = len(teams)
 
     if week > 0:
