@@ -23,7 +23,6 @@ MiamiOH,Kentucky,Kentucky,21.4,26.7
 CentralMichigan,OklahomaState,OklahomaState,29.7,26.3
 Wyoming,Illinois,Illinois,15.9,25.6
 KentState,Washington,KentState,4.1,25.1
-MiddleTennessee,JamesMadison,MiddleTennessee,4.2,24.7
 Oregon,Georgia,Georgia,41.4,24.3
 Clemson,GeorgiaTech,Clemson,24.0,24.3
 Memphis,MississippiState,MississippiState,14.3,24.0
@@ -56,6 +55,7 @@ BowlingGreen,UCLA,UCLA,41.7,-7.3
 FCS,Kansas,Kansas,16.0,-8.4
 FCS,Vanderbilt,Vanderbilt,17.3,-9.1
 FCS,Charlotte,Charlotte,19.1,-10.0
+MiddleTennessee,JamesMadison,MiddleTennessee,27.3,-10.0
 FCS,Stanford,Stanford,20.0,-10.4
 FCS,NewMexico,NewMexico,20.8,-10.8
 FCS,SanJoseState,SanJoseState,22.7,-11.7
@@ -73,6 +73,7 @@ Massachusetts,Tulane,Tulane,41.2,-21.9
 FCS,WesternKentucky,WesternKentucky,43.8,-22.3
 FCS,Toledo,Toledo,44.8,-22.8
 FCS,TexasTech,TexasTech,45.4,-23.1
+FCS,LouisianaLafayette,LouisianaLafayette,46.8,-23.8
 FCS,FresnoState,FresnoState,47.2,-24.0
 FCS,UCF,UCF,48.5,-24.6
 FCS,Navy,Navy,49.0,-24.9
@@ -87,6 +88,7 @@ FCS,WakeForest,WakeForest,55.0,-27.9
 FCS,Iowa,Iowa,58.0,-29.4
 FCS,Auburn,Auburn,59.4,-30.1
 FCS,IowaState,IowaState,59.7,-30.2
+FCS,TexasAM,TexasAM,61.3,-31.0
 FCS,Nebraska,Nebraska,62.5,-31.6
 FCS,Baylor,Baylor,64.9,-32.9
 FCS,AirForce,AirForce,69.7,-35.3
