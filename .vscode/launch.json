@@ -17,7 +17,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\rank.py",
-            "args": ["2022", "6"],
+            "args": ["2022", "7"],
             "console": "integratedTerminal"
         },
         {
@@ -25,7 +25,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\predict.py",
-            "args": ["2022", "7"],
+            "args": ["2022", "8"],
             "console": "integratedTerminal"
         },
         {
@@ -33,7 +33,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\dynamite_rankings\\evaluate.py",
-            "args": ["2022", "6"],
+            "args": ["2022", "7"],
             "console": "integratedTerminal"
         },
         {
