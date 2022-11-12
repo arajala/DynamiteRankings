@@ -49,8 +49,6 @@ def rank(year, week):
     else:
         stats = the_kick_is_bad.read_stats_by_category(year, teams, max_week=week)
 
-    teams = the_kick_is_bad.read_teams(year)
-
     team_rankings = calculate_team_rankings(year, week, stats, teams)
 
     calculate_conference_rankings(year, week, teams, team_rankings)
